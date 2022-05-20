@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  background-color: #fff1f1;
+  max-width: 538px;
+  min-width: 538px;
+  margin: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.type {
+  font-size: 1rem;
+}
+.data {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  strong {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+}
+.parameters {
+  display: flex;
+  align-items: center;
+  div {
+    margin-right: 16px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    align-items: center;
+    display: flex;
+  }
+}

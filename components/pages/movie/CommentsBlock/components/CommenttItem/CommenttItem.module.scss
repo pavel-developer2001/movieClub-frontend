@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 569px;
+  min-width: 569px;
+}
+.image {
+  object-fit: cover;
+  border-radius: 3rem;
+  min-height: fit-content !important;
+  max-height: fit-content !important;
+  width: fit-content !important;
+  height: fit-content !important;
+}
+.data {
+  margin-left: 10px;
+  width: 91%;
+  .content {
+    background-color: #fff;
+    padding: 6px 8px 10px 16px;
+    border-radius: 12px;
+    .head {
+      margin-bottom: 5px;
+      strong {
+        font-size: 1rem;
+      }
+      span {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

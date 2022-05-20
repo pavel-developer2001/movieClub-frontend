@@ -1,0 +1,42 @@
+.episodeBlock {
+  display: flex;
+  border-bottom: 1px solid hsla(0, 0%, 59%, 0.1);
+  margin: 15px 0;
+}
+.linkBlock {
+  display: flex;
+  margin-bottom: 15px;
+  color: black;
+}
+.image {
+  border-radius: 8px;
+}
+.infoBlock {
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all ease 0.3s;
+    &:hover {
+      cursor: pointer;
+      color: #1976d2;
+    }
+  }
+  .episode {
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all ease 0.3s;
+    &:hover {
+      cursor: pointer;
+      color: #1976d2;
+    }
+  }
+  .time {
+    font-size: 14px;
+    font-weight: 400;
+    color: grey;
+  }
+}

@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px;
+  border-bottom: 1px solid hsla(0, 0%, 59%, 0.1);
+  padding-bottom: 24px;
+}
+.rigth {
+  margin-left: 3rem;
+  strong {
+    font-size: 2.25rem;
+  }
+}
+.data {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  div {
+    &:not(:first-child) {
+      margin: 0 10px;
+    }
+    span {
+      font-weight: 500;
+    }
+  }
+}

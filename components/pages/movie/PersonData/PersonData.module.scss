@@ -1,0 +1,16 @@
+.wrapper {
+  cursor: pointer;
+  display: flex;
+  margin: 0 15px;
+  flex-direction: column;
+  align-items: center;
+  span {
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  strong {
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    margin-top: 10px;
+  }
+}

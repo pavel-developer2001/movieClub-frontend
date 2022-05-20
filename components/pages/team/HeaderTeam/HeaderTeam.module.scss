@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px;
+  border-bottom: 1px solid hsla(0, 0%, 59%, 0.1);
+  padding-bottom: 20px;
+}
+.avatar {
+  display: grid;
+  margin-right: 3rem;
+  span {
+    border-radius: 6px;
+  }
+  .rank {
+    margin-top: 12px;
+  }
+}
+.data {
+  margin-left: 20px;
+  strong {
+    font-size: 2.25rem;
+  }
+  p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+  .parameteres {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    div {
+      &:not(:first-child) {
+        margin: 0 10px;
+      }
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+}

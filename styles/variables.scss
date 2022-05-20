@@ -1,0 +1,10 @@
+//body
+$body-background-dark: #141414;
+$body-background-light: #fafafa;
+
+:root {
+  //body-background
+  --body-background-dark: #{$body-background-dark};
+  --body-background-light: #{$body-background-light};
+  --body-background-default: var(#{--body-background-light});
+}

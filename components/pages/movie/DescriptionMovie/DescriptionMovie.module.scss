@@ -1,0 +1,18 @@
+.categories {
+  margin: 25px 0;
+}
+.tag {
+  margin: 5px;
+}
+.person {
+  margin: 10px 0;
+  strong {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .list {
+    display: flex;
+    padding-top: 15px;
+  }
+}

@@ -1,0 +1,17 @@
+.contact {
+  margin-bottom: 20px;
+  border: 1px solid hsla(0, 0%, 59%, 0.1);
+  border-radius: 8px;
+  padding: 16px 24px;
+  strong {
+    font-size: 1.5rem;
+  }
+  .social {
+    margin-top: 15px;
+  }
+}
+.icon {
+  &:not(:first-child) {
+    padding: 0 10px;
+  }
+}

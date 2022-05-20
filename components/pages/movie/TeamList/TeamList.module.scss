@@ -1,0 +1,22 @@
+.wrapper {
+  strong {
+    font-size: 1.3rem;
+  }
+}
+.image {
+  border-radius: 0.375rem;
+}
+.teamInfo {
+  display: flex;
+  margin: 25px 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.info {
+  display: grid;
+  margin-left: 15px;
+  strong {
+    font-size: 1rem;
+  }
+}

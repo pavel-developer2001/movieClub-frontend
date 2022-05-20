@@ -1,0 +1,11 @@
+.wrapper {
+  margin-right: 30px;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-bottom: 11px !important;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
