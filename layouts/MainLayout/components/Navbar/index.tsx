@@ -13,6 +13,11 @@ import dynamic from "next/dynamic"
 import { Button } from "@mui/material"
 import ProfileMenu from "./components/ProfileMenu"
 import RenderMenu from "./components/RenderMenu"
+import {
+  selectIsAuth,
+  selectUserData,
+} from "../../../../store/modules/user/user.selector"
+import { useSelector } from "react-redux"
 
 const DynamicMobileMenu = dynamic(() => import("./components/MobileMenu"), {
   loading: () => <div>loading...</div>,
@@ -25,6 +30,9 @@ const DynamicChangeThemeButton = dynamic(
   }
 )
 const Navbar = () => {
+  const isAuth = useSelector(selectIsAuth)
+
+  const user = useSelector(selectUserData)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null)
@@ -39,8 +47,6 @@ const Navbar = () => {
   const menuId = "primary-search-account-menu"
 
   const mobileMenuId = "primary-search-account-menu-mobile"
-
-  const isAuth = true
 
   return (
     <div className={styles.main}>
@@ -96,7 +102,11 @@ const Navbar = () => {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <ProfileMenu menuId={menuId} setAnchorEl={setAnchorEl} />
+                <ProfileMenu
+                  user={user}
+                  menuId={menuId}
+                  setAnchorEl={setAnchorEl}
+                />
               </>
             ) : (
               <Auth />
@@ -118,6 +128,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       <RenderMenu
+        user={user}
         anchorEl={anchorEl}
         menuId={menuId}
         setAnchorEl={setAnchorEl}

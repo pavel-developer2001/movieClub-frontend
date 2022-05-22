@@ -4,6 +4,7 @@ import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import styles from "../../Auth.module.scss"
+import { useActions } from "../../../../../../../../hooks/useActions"
 
 const RegisterFormSchema = yup.object().shape({
   name: yup.string().min(4, "Минимальная длина имени 4 символа").required(),
@@ -26,9 +27,10 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(RegisterFormSchema),
   })
+  const { registerUsers } = useActions()
   const onSubmit = async (data: any) => {
     if (data.password === data.password2) {
-      console.log("DATA", data)
+      registerUsers(data)
       reset()
     }
   }

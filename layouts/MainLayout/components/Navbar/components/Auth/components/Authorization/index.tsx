@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Button from "@mui/material/Button"
 import styles from "../../Auth.module.scss"
+import { useActions } from "../../../../../../../../hooks/useActions"
 
 const AuthorizationFormSchema = yup.object().shape({
   email: yup.string().email("Неверная почта").required("Введите почту"),
@@ -22,8 +23,9 @@ const Authorization = () => {
   } = useForm({
     resolver: yupResolver(AuthorizationFormSchema),
   })
+  const { loginUsers } = useActions()
   const onSubmit = async (data: any) => {
-    console.log("DATA", data)
+    loginUsers(data)
     reset()
   }
 

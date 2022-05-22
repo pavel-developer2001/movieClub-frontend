@@ -12,6 +12,7 @@ import Authorization from "./components/Authorization"
 import Register from "./components/Register"
 import GoogleIcon from "@mui/icons-material/Google"
 import styles from "./Auth.module.scss"
+import { useActions } from "../../../../../../hooks/useActions"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -55,12 +56,17 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 const Auth = () => {
   const [open, setOpen] = useState(false)
   const [login, setLogin] = useState(true)
+  const { userGoogleAuth } = useActions()
   const handleClickOpen = () => {
     setOpen(true)
   }
   const handleClose = () => {
     setOpen(false)
     setLogin(true)
+  }
+  const handleGoogleAuth = () => {
+    userGoogleAuth()
+    setOpen(false)
   }
 
   return (
@@ -85,6 +91,7 @@ const Auth = () => {
         <DialogContent dividers>
           <Button
             className={styles.btn}
+            onClick={handleGoogleAuth}
             variant="outlined"
             href="#outlined-buttons"
           >
@@ -95,7 +102,9 @@ const Auth = () => {
           {login && (
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Нет аккаунта?{" "}
-              <strong onClick={() => setLogin(false)} className={styles.strong}>Зарегистрируйтесь</strong>
+              <strong onClick={() => setLogin(false)} className={styles.strong}>
+                Зарегистрируйтесь
+              </strong>
             </Typography>
           )}
         </DialogContent>

@@ -1,19 +1,20 @@
-import React, { FC } from "react"
+import React, { FC, memo } from "react"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import IconButton from "@mui/material/IconButton"
 import Avatar from "@mui/material/Avatar"
+import { IUser } from "../../../../../../store/modules/user/types/IUser"
 
 interface ProfileMenuProps {
   menuId: string
   setAnchorEl: (event: null | HTMLElement) => void
+  user: IUser
 }
 
-const ProfileMenu: FC<ProfileMenuProps> = ({ menuId, setAnchorEl }) => {
-    
+const ProfileMenu: FC<ProfileMenuProps> = ({ menuId, setAnchorEl, user }) => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-  const coverPerson = true
+
   return (
     <IconButton
       size="large"
@@ -24,11 +25,8 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ menuId, setAnchorEl }) => {
       onClick={handleProfileMenuOpen}
       color="inherit"
     >
-      {coverPerson ? (
-        <Avatar
-          alt="Remy Sharp"
-          src="http://static.hdrezka.sx/i/2022/1/24/nca51a7b11885om13v13x.jpeg"
-        />
+      {user.avatar ? (
+        <Avatar alt="Remy Sharp" src={user.avatar} />
       ) : (
         <AccountCircle />
       )}
@@ -36,4 +34,4 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ menuId, setAnchorEl }) => {
   )
 }
 
-export default ProfileMenu
+export default memo(ProfileMenu)
