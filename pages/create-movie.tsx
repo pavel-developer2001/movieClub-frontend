@@ -17,6 +17,7 @@ import Checkbox from "@mui/material/Checkbox"
 import Button from "@mui/material/Button"
 import { FormHelperText } from "@mui/material"
 import { useActions } from "../hooks/useActions"
+import { useRouter } from "next/router"
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -63,7 +64,7 @@ const CreateMovieFormSchema = yup.object().shape({
     .required(),
   country: yup
     .string()
-    .min(4, "Минимальная длина названия 4 символа")
+    .min(1, "Минимальная длина названия 1 символа")
     .required(),
   description: yup
     .string()
@@ -96,6 +97,7 @@ const CreateMoviePage: NextPage = () => {
     resolver: yupResolver(CreateMovieFormSchema),
   })
   const [genres, setGenres] = React.useState<string[]>([])
+  const router = useRouter()
 
   const handleChange = (event: SelectChangeEvent<typeof genres>) => {
     const {
@@ -116,14 +118,17 @@ const CreateMoviePage: NextPage = () => {
       formData.append("year", data.year)
       formData.append("munites", data.time)
       formData.append("country", data.country)
+      //@ts-ignore
       formData.append("cover", coverMovie)
       for (let i = 0; i < genres.length; i++) {
         formData.append("genres", genres[i])
       }
+      //@ts-ignore
       await addNewMovie(formData)
       reset()
       setCoverMovie(null)
       setGenres([])
+      router.push("/")
     } catch (error) {
       console.log(error)
     }

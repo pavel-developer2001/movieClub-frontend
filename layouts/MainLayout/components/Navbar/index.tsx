@@ -16,6 +16,7 @@ import RenderMenu from "./components/RenderMenu"
 import {
   selectIsAuth,
   selectUserData,
+  selectUserLoading,
 } from "../../../../store/modules/user/user.selector"
 import { useSelector } from "react-redux"
 
@@ -33,6 +34,8 @@ const Navbar = () => {
   const isAuth = useSelector(selectIsAuth)
 
   const user = useSelector(selectUserData)
+  const isLoading = useSelector(selectUserLoading)
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null)
@@ -102,11 +105,15 @@ const Navbar = () => {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <ProfileMenu
-                  user={user}
-                  menuId={menuId}
-                  setAnchorEl={setAnchorEl}
-                />
+                {isLoading ? (
+                  <p>load</p>
+                ) : (
+                  <ProfileMenu
+                    user={user}
+                    menuId={menuId}
+                    setAnchorEl={setAnchorEl}
+                  />
+                )}
               </>
             ) : (
               <Auth />
@@ -127,13 +134,17 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <RenderMenu
-        user={user}
-        anchorEl={anchorEl}
-        menuId={menuId}
-        setAnchorEl={setAnchorEl}
-        setMobileMoreAnchorEl={setMobileMoreAnchorEl}
-      />
+      {isLoading ? (
+        <p>load</p>
+      ) : (
+        <RenderMenu
+          user={user}
+          anchorEl={anchorEl}
+          menuId={menuId}
+          setAnchorEl={setAnchorEl}
+          setMobileMoreAnchorEl={setMobileMoreAnchorEl}
+        />
+      )}
     </div>
   )
 }

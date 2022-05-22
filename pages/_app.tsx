@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const userId = token ? (jwt_decode(token) as any).sub : null
   useEffect(() => {
     if (token) {
-      // dispatch(userCheckout())
+      dispatch(userCheckout())
       dispatch(checkAuth(!isAuth))
     }
   }, [])
