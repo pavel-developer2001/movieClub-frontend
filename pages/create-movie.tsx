@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText"
 import Checkbox from "@mui/material/Checkbox"
 import Button from "@mui/material/Button"
 import { FormHelperText } from "@mui/material"
+import { useActions } from "../hooks/useActions"
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -60,6 +61,10 @@ const CreateMovieFormSchema = yup.object().shape({
     .string()
     .min(3, "Минимальная длина названия 3 символа")
     .required(),
+  country: yup
+    .string()
+    .min(4, "Минимальная длина названия 4 символа")
+    .required(),
   description: yup
     .string()
     .min(20, "Минимальная длина описания 20 символов")
@@ -90,7 +95,6 @@ const CreateMoviePage: NextPage = () => {
   } = useForm({
     resolver: yupResolver(CreateMovieFormSchema),
   })
-  console.log("error", errors)
   const [genres, setGenres] = React.useState<string[]>([])
 
   const handleChange = (event: SelectChangeEvent<typeof genres>) => {
@@ -99,11 +103,24 @@ const CreateMoviePage: NextPage = () => {
     } = event
     setGenres(typeof value === "string" ? value.split(",") : value)
   }
+  const { addNewMovie } = useActions()
   const createMovie = async (data: any) => {
     try {
-      console.log("data", data)
-      console.log("cover", coverMovie)
-      console.log("genres", genres)
+      const formData = new FormData()
+      formData.append("title", data.title)
+      formData.append("englishTitle", data.englishTitle)
+      formData.append("description", data.description)
+      formData.append("type", data.type)
+      formData.append("status", data.status)
+      formData.append("age", data.age)
+      formData.append("year", data.year)
+      formData.append("munites", data.time)
+      formData.append("country", data.country)
+      formData.append("cover", coverMovie)
+      for (let i = 0; i < genres.length; i++) {
+        formData.append("genres", genres[i])
+      }
+      await addNewMovie(formData)
       reset()
       setCoverMovie(null)
       setGenres([])
@@ -159,6 +176,23 @@ const CreateMoviePage: NextPage = () => {
                     />
                   )}
                   name="englishTitle"
+                  control={control}
+                  defaultValue=""
+                />
+              </div>
+              <div className={styles.field}>
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      label="Страна"
+                      error={!!errors?.country}
+                      id="outlined-error-helper-text"
+                      helperText={errors?.country?.message}
+                    />
+                  )}
+                  name="country"
                   control={control}
                   defaultValue=""
                 />
