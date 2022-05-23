@@ -16,10 +16,9 @@ const RatingChangeBtn = () => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const ratingData = useSelector(selectRatingItemData)
-  console.log("ratingData", ratingData.rating as string)
+
   const [rating, setRating] = useState<null | number>(null)
   const { addRating, updateRating, getRating } = useActions()
-  console.log(rating)
 
   const loading = useSelector(selectRatingLoading)
   const dataMovie: { id: string | string[] | undefined } = {

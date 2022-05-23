@@ -13,17 +13,22 @@ import CreateCommentForm from "../CreateCommentForm"
 
 interface CommenttItemProps {
   isShowBtn?: boolean
+  comment: any
 }
 
-const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true }) => {
+const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
   const [isShowForm, setIsShowForm] = useState(false)
   const [isShowParentComments, setIsShowPrrentComments] = useState(false)
   return (
     <div className={styles.wrapper}>
-      <Link href="/user/1">
+      <Link href={`/user/${comment.user._id}`}>
         <Image
           className={styles.image}
-          src={"https://api.remanga.org//media/users/2814/avatar.jpg"}
+          src={
+            comment.user.avatar
+              ? comment.user.avatar
+              : "https://api.remanga.org//media/users/2814/avatar.jpg"
+          }
           width={40}
           height={40}
         />
@@ -31,10 +36,10 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true }) => {
       <div className={styles.data}>
         <div className={styles.content}>
           <div className={styles.head}>
-            <strong>Heodark</strong>
-            <span> · 6 часов назад</span>
+            <strong>{comment.user.name}</strong>
+            <span> · {comment.createdAt}</span>
           </div>
-          <p>Ааааааа я дико хочу узнать как визуалезируют каэру</p>
+          <p>{comment.commentText}</p>
         </div>
         <div className={styles.footer}>
           <Tooltip title="Лайк">
@@ -42,7 +47,7 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true }) => {
               <ExpandLessIcon />
             </IconButton>
           </Tooltip>
-          <span>0</span>
+          <span>{comment.countLikes}</span>
           <Tooltip title="Дизлайк">
             <IconButton aria-label="create">
               <ExpandMoreIcon />
@@ -56,7 +61,7 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true }) => {
               <ReplySharpIcon />
             </IconButton>
           </Tooltip>
-          {isShowBtn && (
+          {comment.parentId && isShowBtn && (
             <Tooltip title="Ответы">
               <Button
                 variant="text"
@@ -68,11 +73,12 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true }) => {
             </Tooltip>
           )}
         </div>
-        {isShowForm && <CreateCommentForm whom="@Headark," />}
-        {isShowParentComments &&
+        {isShowForm && <CreateCommentForm whom={"@" + comment.user.name} />}
+        {comment.parentId &&
+          isShowParentComments &&
           new Array(5)
             .fill("")
-            .map((_, index) => <CommenttItem isShowBtn={false} />)}
+            .map((_, index) => <CommenttItem comment={{}} isShowBtn={false} />)}
       </div>
     </div>
   )

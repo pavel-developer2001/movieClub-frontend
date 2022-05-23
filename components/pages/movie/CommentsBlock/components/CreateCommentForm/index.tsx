@@ -5,6 +5,8 @@ import SendIcon from "@mui/icons-material/Send"
 import IconButton from "@mui/material/IconButton"
 import Switch from "@mui/material/Switch"
 import Tooltip from "@mui/material/Tooltip"
+import { useActions } from "../../../../../../hooks/useActions"
+import { useRouter } from "next/router"
 
 interface CreateCommentFormProps {
   width?: string
@@ -15,11 +17,16 @@ const CreateCommentForm: FC<CreateCommentFormProps> = ({
   width = "620",
   whom = "Оставить комментарий",
 }) => {
+  const { addComment } = useActions()
+  const router = useRouter()
   const [text, setText] = useState("")
   const [spoiler, setSpoiler] = useState(false)
   const handleCreateComment = async () => {
     try {
-      console.log("data", text, spoiler)
+      const payload = { commentText: text, spoiler, movieId: router.query.id }
+      await addComment(payload)
+      setText("")
+      setSpoiler(false)
     } catch (error) {
       console.log(error)
     }
@@ -34,7 +41,7 @@ const CreateCommentForm: FC<CreateCommentFormProps> = ({
           onChange={(e) => setText(e.target.value)}
           id="outlined-basic"
           className={styles.field}
-          label={whom}
+          label={ whom}
           variant="outlined"
         />
         {text.length >= 4 && text.length <= 500 && (
