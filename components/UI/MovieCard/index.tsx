@@ -19,7 +19,6 @@ const MovieCard: FC<MovieCardProps> = ({
   heightCover = 222,
   movie,
 }) => {
-  console.log("movie", movie)
   return (
     <div
       className={styles.main}
