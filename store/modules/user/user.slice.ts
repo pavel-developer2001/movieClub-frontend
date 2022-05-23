@@ -15,12 +15,14 @@ interface UserState {
   isAuth: boolean
   status: null | string
   loading: boolean
+  error: null
 }
 const initialState: UserState = {
   user: {},
   isAuth: false,
   status: null,
   loading: true,
+  error: null,
 }
 const userSlice = createSlice({
   name: "user",

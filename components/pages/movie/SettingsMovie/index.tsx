@@ -1,5 +1,5 @@
 import Image from "next/image"
-import React, { useState } from "react"
+import React, { FC, useState } from "react"
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -10,7 +10,12 @@ import { Button } from "@mui/material"
 import ReportIcon from "@mui/icons-material/Report"
 import Link from "next/link"
 
-const SettingsMovie = () => {
+interface SettingsMovieProps {
+  id: number
+  cover: null | string
+}
+
+const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
   const [bookmark, setBookmark] = useState("")
   console.log(bookmark)
   const bookmarksArray = [
@@ -44,12 +49,16 @@ const SettingsMovie = () => {
     <div className={styles.wrapper}>
       <Image
         className={styles.image}
-        src={"http://static.hdrezka.sx/i/2022/5/6/g9f8b8405c7e8fz35h22c.png"}
+        src={
+          cover
+            ? cover
+            : "http://static.hdrezka.sx/i/2022/5/6/g9f8b8405c7e8fz35h22c.png"
+        }
         width={250}
         height={338}
       />
       <Button variant="outlined">
-        <Link href={"/movie/1/upload/"}>
+        <Link href={`/movie/${id}/upload/`}>
           <a>Добавить видео</a>
         </Link>
       </Button>
@@ -75,7 +84,7 @@ const SettingsMovie = () => {
       </Box>
 
       <Button variant="text">
-        <Link href="/movie/1/edit">Редактировать</Link>
+        <Link href={`/movie/${id}/edit`}>Редактировать</Link>
       </Button>
       <Button variant="text" startIcon={<ReportIcon />}>
         Пожаловаться

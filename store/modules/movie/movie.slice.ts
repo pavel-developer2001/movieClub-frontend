@@ -1,32 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { HYDRATE } from "next-redux-wrapper"
-import { addNewMovie } from "./movie.actions"
+import { addNewMovie, getMovie, getMovies } from "./movie.actions"
 import { IGenre } from "./types/IGenre"
 
-// export const getMangas = createAsyncThunk("manga/getMangas", async () => {
-//   return await MangaApi.getAllManga();
-// });
-// export const getManga = createAsyncThunk(
-//   "manga/getManga",
-//   async (id: string | string[] | undefined) => {
-//     return await MangaApi.getManga(id);
-//   }
-// );
 interface MovieItems {
   movie: any
   genre: IGenre[]
 }
-interface MangaState {
+interface MovieState {
   movies: any
   movie: MovieItems
   status: null | string
   loading: boolean
+  error: null
 }
-const initialState: MangaState = {
+const initialState: MovieState = {
   movies: [],
   movie: { movie: [], genre: [] },
   status: null,
   loading: true,
+  error: null,
 }
 const movieSlice = createSlice({
   name: "movie",
@@ -47,21 +40,21 @@ const movieSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(HYDRATE, (state, action: any) => {
-        state.movies = action.payload.manga.mangas
-        state.movie = action.payload.manga.manga
+        state.movies = action.payload.movie.movies
+        state.movie = action.payload.movie.movie
         state.loading = false
       })
       .addCase(addNewMovie.fulfilled, (state, action: any) => {
         state.movies.push(action.payload)
+      })
+      .addCase(getMovies.fulfilled, (state, action) => {
+        state.movies = action.payload.data
+        state.loading = false
+      })
+      .addCase(getMovie.fulfilled, (state, action) => {
+        state.movie = action.payload.data
+        state.loading = false
       }),
-  //   .addCase(getMangas.fulfilled, (state, action) => {
-  //     state.mangas = action.payload.data;
-  //     state.loading = false;
-  //   })
-  //   .addCase(getManga.fulfilled, (state, action) => {
-  //     state.manga = action.payload.data;
-  //     state.loading = false;
-  //   }),
 })
 
 export default movieSlice.reducer

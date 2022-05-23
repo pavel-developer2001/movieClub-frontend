@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { FC, useState } from "react"
 import styles from "./MovieContent.module.scss"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -9,14 +9,26 @@ import CommentsBlock from "../CommentsBlock"
 import { TabPanel } from "../../../UI/TabPanel"
 import { a11yProps } from "../../../UI/TabPanel"
 
-const MovieContent = () => {
+interface MovieContentProps {
+  movie: any
+}
+
+const MovieContent: FC<MovieContentProps> = ({ movie }) => {
   const [value, setValue] = useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
   const tabsArray = [
-    { component: <DescriptionMovie />, index: 0 },
+    {
+      component: (
+        <DescriptionMovie
+          description={movie.description}
+          genres={movie.genres}
+        />
+      ),
+      index: 0,
+    },
     { component: <VideoPlayer />, index: 1 },
     { component: <CommentsBlock />, index: 2 },
   ]

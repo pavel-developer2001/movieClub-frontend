@@ -4,6 +4,8 @@ import Menu from "@mui/material/Menu"
 import Link from "next/link"
 import { IUser } from "../../../../../../store/modules/user/types/IUser"
 import { useActions } from "../../../../../../hooks/useActions"
+import { token } from "../../../../../../services"
+import jwt_decode from "jwt-decode"
 
 interface RenderMenuProps {
   menuId: string
@@ -52,7 +54,9 @@ const RenderMenu: FC<RenderMenuProps> = ({
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link href={`/user/${user._id}`}>Мой профиль</Link>
+        <Link href={`/user/${(jwt_decode(token) as any).sub}`}>
+          Мой профиль
+        </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <Link href="/create-movie">Добавить кино</Link>

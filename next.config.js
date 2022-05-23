@@ -6,6 +6,7 @@ const nextConfig = {
       "static.hdrezka.sx",
       "api.remanga.org",
       "storage.yandexcloud.net",
+      "res.cloudinary.com",
     ],
   },
 }

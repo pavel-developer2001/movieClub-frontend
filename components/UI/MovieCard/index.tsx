@@ -9,6 +9,7 @@ interface MovieCardProps {
   height?: string
   widthCover?: number
   heightCover?: number
+  movie: any
 }
 
 const MovieCard: FC<MovieCardProps> = ({
@@ -16,17 +17,21 @@ const MovieCard: FC<MovieCardProps> = ({
   height = "330",
   widthCover = 148,
   heightCover = 222,
+  movie,
 }) => {
+  console.log("movie", movie)
   return (
     <div
       className={styles.main}
       style={{ maxWidth: width + "px", maxHeight: height + "px" }}
     >
-      <Link href="/movie/1">
+      <Link href={`/movie/${movie._id}`}>
         <div>
           <Image
             src={
-              "http://static.hdrezka.sx/i/2022/3/11/la1c4f936b11ctn49p58t.jpg"
+              movie.cover
+                ? movie.cover
+                : "http://static.hdrezka.sx/i/2022/3/11/la1c4f936b11ctn49p58t.jpg"
             }
             height={heightCover}
             className={styles.cover}
@@ -37,8 +42,8 @@ const MovieCard: FC<MovieCardProps> = ({
             <span>100.0k</span>
           </div>
           <div className={styles.namesBlock}>
-            <strong>Лунный рыцарь</strong>
-            <span>Сериал</span>
+            <strong>{movie.title}</strong>
+            <span>{movie.type}</span>
           </div>
         </div>
       </Link>

@@ -1,13 +1,18 @@
 import { Chip } from "@mui/material"
-import React from "react"
+import React, { FC } from "react"
 import Slider from "react-slick"
 import PersonData from "../PersonData"
 import styles from "./DescriptionMovie.module.scss"
 
-const DescriptionMovie = () => {
-  const tagsArray = new Array(20)
-    .fill("")
-    .map((_, i) => ({ id: i, name: `Tag ${i + 1}` }))
+interface DescriptionMovieProps {
+  description: string
+  genres: any
+}
+
+const DescriptionMovie: FC<DescriptionMovieProps> = ({
+  description,
+  genres,
+}) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -22,21 +27,10 @@ const DescriptionMovie = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <p>
-        Стивен Грант — кассир в сувенирном магазине в лондонском музее, который
-        страдает от лунатизма и часто теряет счет времени. Однажды Стивен
-        обнаруживает, что самые ужасные ночные кошмары начинают воплощаться в
-        жизнь, а он на самом деле делит свое сознание с бывшим военным наемником
-        Марком Спектром. Страдая от расстройства личности, Стивен превращается в
-        бесстрашного супергероя, известного как Лунный рыцарь. Тем временем
-        лидер культа Артур Хэрроу, поклоняющийся древнеегипетской богине Амат,
-        совершает массовые убийства людей, которые имеют плохую
-        наследственность. Лунный рыцарь вступает в кровопролитное противостояние
-        с Хэрроу, попутно пытаясь разобраться в своей множественной личности.
-      </p>
+      <p>{description}</p>
       <div className={styles.categories}>
-        {tagsArray.map((tag) => (
-          <Chip key={tag.id} label={tag.name} className={styles.tag} />
+        {genres.map((genre: any) => (
+          <Chip key={genre._id} label={genre.name} className={styles.tag} />
         ))}
       </div>
       <div className={styles.person}>
