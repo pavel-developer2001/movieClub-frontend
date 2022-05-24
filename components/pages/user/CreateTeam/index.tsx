@@ -11,6 +11,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 
 const CreateTeamFormSchema = yup.object().shape({
   title: yup.string().min(4, "Минимальная длина названия 4 символа").required(),
+  subTitle: yup
+    .string()
+    .min(4, "Минимальная длина подзагаловка 4 символа")
+    .required(),
   description: yup
     .string()
     .min(10, "Минимальная длина описания 10 символов")
@@ -67,6 +71,23 @@ const CreateTeam = () => {
                   />
                 )}
                 name="title"
+                control={control}
+                defaultValue=""
+              />
+            </div>
+            <div className={styles.field}>
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Подзагаловок команды"
+                    error={!!errors?.subTitle}
+                    id="outlined-error-helper-text"
+                    helperText={errors?.subTitle?.message}
+                  />
+                )}
+                name="subTitle"
                 control={control}
                 defaultValue=""
               />

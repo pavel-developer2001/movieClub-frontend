@@ -25,22 +25,22 @@ const TeamBody = () => {
           aria-label="basic tabs example"
         >
           <Tab label="Профиль" {...a11yProps(0)} />
-          <Tab label="Тайтлы" {...a11yProps(1)} />
-          <Tab label="Лента" {...a11yProps(2)} />
+          {/* <Tab label="Тайтлы" {...a11yProps(1)} /> */}
+          <Tab label="Лента" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <TeamContact />
         <LineUpTeam />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <div className={styles.list}>
           {new Array(10).fill("").map((_, index) => (
             <AnotherMovieCard key={index} />
           ))}
         </div>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      </TabPanel> */}
+      <TabPanel value={value} index={1}>
         Лента
       </TabPanel>
     </Box>
