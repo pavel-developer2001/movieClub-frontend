@@ -1,27 +1,35 @@
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { FC } from "react"
 import styles from "./LastMovieEpisode.module.scss"
 
-const LastMovieEpisode = () => {
+interface LastMovieEpisodeProps {
+  episode: any
+}
+
+const LastMovieEpisode: FC<LastMovieEpisodeProps> = ({ episode }) => {
   return (
     <div className={styles.episodeBlock}>
-      <Link href="/movie/1">
+      <Link href={`/movie/${episode.movie._id}`}>
         <a className={styles.linkBlock}>
           <Image
             className={styles.image}
             src={
-              "http://static.hdrezka.sx/i/2022/5/6/u9e379969c5e9fx31q87y.jpg"
+              episode.movie.cover
+                ? episode.movie.cover
+                : "http://static.hdrezka.sx/i/2022/5/6/u9e379969c5e9fx31q87y.jpg"
             }
             width={70}
             height={103}
           />
           <div className={styles.infoBlock}>
-            <strong className={styles.title}>Лунный рыцарь</strong>
+            <strong className={styles.title}>{episode.movie.title}</strong>
             <strong className={styles.episode}>
-              1 сезон 6 серия : Добавлен фильм
+              {episode.season !== "undefined" && episode.episode !== "undefined"
+                ? `${episode.season} сезон ${episode.episode} серия `
+                : "Добавлен фильм"}
             </strong>
-            <span className={styles.time}>4 минуты назад</span>
+            <span className={styles.time}>{episode.createdAt} назад</span>
           </div>
         </a>
       </Link>

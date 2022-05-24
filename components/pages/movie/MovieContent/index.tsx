@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import styles from "./MovieContent.module.scss"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -8,6 +8,13 @@ import DescriptionMovie from "../DescriptionMovie"
 import CommentsBlock from "../CommentsBlock"
 import { TabPanel } from "../../../UI/TabPanel"
 import { a11yProps } from "../../../UI/TabPanel"
+import { useSelector } from "react-redux"
+import {
+  selectEpisodeData,
+  selectEpisodeLoading,
+} from "../../../../store/modules/episode/episode.selector"
+import { useRouter } from "next/router"
+import { useActions } from "../../../../hooks/useActions"
 
 interface MovieContentProps {
   movie: any
@@ -15,6 +22,14 @@ interface MovieContentProps {
 
 const MovieContent: FC<MovieContentProps> = ({ movie }) => {
   const [value, setValue] = useState(0)
+  const router = useRouter()
+  const { getEpisodesForMovie } = useActions()
+  const episodes = useSelector(selectEpisodeData)
+  const isLoading = useSelector(selectEpisodeLoading)
+  useEffect(() => {
+    //@ts-ignore
+    getEpisodesForMovie(router?.query?.id)
+  }, [router, isLoading])
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -29,7 +44,16 @@ const MovieContent: FC<MovieContentProps> = ({ movie }) => {
       ),
       index: 0,
     },
-    { component: <VideoPlayer />, index: 1 },
+    {
+      component: isLoading ? (
+        <p>loading...</p>
+      ) : episodes.length > 0 ? (
+        episodes.map((episode: any) => <VideoPlayer value={episode.url} />)
+      ) : (
+        "Нет видео"
+      ),
+      index: 1,
+    },
     { component: <CommentsBlock />, index: 2 },
   ]
   return (

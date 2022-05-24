@@ -10,6 +10,12 @@ import {
   selectMovieLoading,
   selectMovies,
 } from "../store/modules/movie/movie.selector"
+import {
+  selectEpisodeLoading,
+  selectEpisodes,
+} from "../store/modules/episode/episode.selector"
+import { useEffect } from "react"
+import { useActions } from "../hooks/useActions"
 
 const Home: NextPage = () => {
   const settings = {
@@ -26,6 +32,13 @@ const Home: NextPage = () => {
   }
   const movies = useSelector(selectMovies)
   const isLoading = useSelector(selectMovieLoading)
+  const episodes = useSelector(selectEpisodes)
+  const episodeIsLoading = useSelector(selectEpisodeLoading)
+  const { getEpisodes } = useActions()
+  useEffect(() => {
+    getEpisodes()
+  }, [])
+
   return (
     <MainLayout>
       {isLoading ? (
@@ -46,9 +59,15 @@ const Home: NextPage = () => {
         </div>
       )}
       <div>
-        {new Array(20).fill("").map((_, index) => (
-          <LastMovieEpisode key={index} />
-        ))}
+        {episodeIsLoading ? (
+          <p>loading...</p>
+        ) : episodes.length > 0 ? (
+          episodes.map((episode: any) => (
+            <LastMovieEpisode episode={episode} key={episode._id} />
+          ))
+        ) : (
+          <p>Нет добавлений</p>
+        )}
       </div>
     </MainLayout>
   )

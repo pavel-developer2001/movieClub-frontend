@@ -1,8 +1,10 @@
 import { Button } from "@mui/material"
 import TextField from "@mui/material/TextField"
 import { NextPage } from "next"
+import { useRouter } from "next/router"
 import React, { useState } from "react"
 import VideoPlayer from "../../../components/UI/VideoPlayer"
+import { useActions } from "../../../hooks/useActions"
 import MainLayout from "../../../layouts/MainLayout"
 import styles from "../../../styles/pages/UploadPage.module.scss"
 
@@ -12,6 +14,8 @@ const UploadPage: NextPage = () => {
   const [episode, setEpisode] = useState<string | undefined | number>(undefined)
   const [isLoading, setIsLoading] = useState(false)
   const [video, setVideo] = useState(null)
+  const router = useRouter()
+  const { addNewEpisode } = useActions()
   const handleChangeVideo = (e: any) => {
     const video = URL.createObjectURL(e.target.files[0])
     setTestVideo(video)
@@ -25,10 +29,24 @@ const UploadPage: NextPage = () => {
     if (!video) alert("Загрузите видео!")
     try {
       setIsLoading(true)
-      console.log("episode", video)
-      const payload = await { season, episode, video }
-      console.log("data", payload)
+
+      const formData = new FormData()
+      //@ts-ignore
+      formData.append("video", video)
+      //@ts-ignore
+      formData.append("movieId", router.query.id)
+      //@ts-ignore
+      formData.append("season", season)
+      //@ts-ignore
+      formData.append("episode", episode)
+      //@ts-ignore
+      await addNewEpisode(formData)
+      setEpisode(undefined)
+      setVideo(null)
+      setSeason(undefined)
       setIsLoading(false)
+      setTestVideo(null)
+      router.push("/movie/" + router.query.id)
     } catch (error) {
       console.log(error)
     }
