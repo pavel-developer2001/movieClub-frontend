@@ -10,6 +10,7 @@
   min-height: fit-content !important;
   max-height: fit-content !important;
   width: fit-content !important;
+  cursor: pointer;
   height: fit-content !important;
 }
 .data {
@@ -23,6 +24,7 @@
       margin-bottom: 5px;
       strong {
         font-size: 1rem;
+        cursor: pointer;
       }
       span {
         font-size: 0.9rem;

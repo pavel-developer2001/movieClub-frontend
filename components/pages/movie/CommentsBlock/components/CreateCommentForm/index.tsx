@@ -11,11 +11,13 @@ import { useRouter } from "next/router"
 interface CreateCommentFormProps {
   width?: string
   whom?: string
+  parentId?: null | string
 }
 
 const CreateCommentForm: FC<CreateCommentFormProps> = ({
   width = "620",
   whom = "Оставить комментарий",
+  parentId = null,
 }) => {
   const { addComment } = useActions()
   const router = useRouter()
@@ -23,7 +25,12 @@ const CreateCommentForm: FC<CreateCommentFormProps> = ({
   const [spoiler, setSpoiler] = useState(false)
   const handleCreateComment = async () => {
     try {
-      const payload = { commentText: text, spoiler, movieId: router.query.id }
+      const payload = {
+        commentText: whom !== "Оставить комментарий" ? whom + "," + text : text,
+        spoiler,
+        movieId: router.query.id,
+        parentId,
+      }
       await addComment(payload)
       setText("")
       setSpoiler(false)
@@ -41,7 +48,7 @@ const CreateCommentForm: FC<CreateCommentFormProps> = ({
           onChange={(e) => setText(e.target.value)}
           id="outlined-basic"
           className={styles.field}
-          label={ whom}
+          label={whom}
           variant="outlined"
         />
         {text.length >= 4 && text.length <= 500 && (

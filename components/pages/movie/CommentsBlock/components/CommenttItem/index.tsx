@@ -36,7 +36,9 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
       <div className={styles.data}>
         <div className={styles.content}>
           <div className={styles.head}>
-            <strong>{comment.user.name}</strong>
+            <Link href={`/user/${comment.user._id}`}>
+              <strong>{comment.user.name}</strong>
+            </Link>
             <span> · {comment.createdAt}</span>
           </div>
           <p>{comment.commentText}</p>
@@ -73,7 +75,7 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
             </Tooltip>
           )}
         </div>
-        {isShowForm && <CreateCommentForm whom={"@" + comment.user.name} />}
+        {isShowForm && <CreateCommentForm whom={"@" + comment.user.name} parentId={comment._id}/>}
         {comment.parentId &&
           isShowParentComments &&
           new Array(5)

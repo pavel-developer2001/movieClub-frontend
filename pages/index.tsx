@@ -30,13 +30,19 @@ const Home: NextPage = () => {
     <MainLayout>
       {isLoading ? (
         <p>loading...</p>
-      ) : (
+      ) : movies.lenght > 10 ? (
         <div>
           <Slider {...settings}>
             {movies.map((movie: any) => (
               <MovieCard key={movie._id} movie={movie} />
             ))}
           </Slider>
+        </div>
+      ) : (
+        <div style={{ display: "flex" }}>
+          {movies.map((movie: any) => (
+            <MovieCard key={movie._id} movie={movie} />
+          ))}
         </div>
       )}
       <div>

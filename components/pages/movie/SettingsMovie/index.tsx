@@ -1,5 +1,5 @@
 import Image from "next/image"
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -9,6 +9,13 @@ import styles from "./SettingsMovie.module.scss"
 import { Button } from "@mui/material"
 import ReportIcon from "@mui/icons-material/Report"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { useActions } from "../../../../hooks/useActions"
+import {
+  selectBookMarkItemData,
+  selectBookMarkLoading,
+} from "../../../../store/modules/bookmark/bookmark.selector"
+import { useSelector } from "react-redux"
 
 interface SettingsMovieProps {
   id: number
@@ -16,8 +23,11 @@ interface SettingsMovieProps {
 }
 
 const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
-  const [bookmark, setBookmark] = useState("")
-  console.log(bookmark)
+  const router = useRouter()
+  const { addBookmark, updateBookmark, getBookmarkToMovie } = useActions()
+  const bookmarkData = useSelector(selectBookMarkItemData)
+  const [bookmark, setBookmark] = useState()
+  const loading = useSelector(selectBookMarkLoading)
   const bookmarksArray = [
     {
       title: "Смотрю",
@@ -41,9 +51,33 @@ const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
       title: "Удалить из закладок",
     },
   ]
+  const dataMovie: { movieId: string | string[] | undefined } = {
+    movieId: router.query.id,
+  }
+  useEffect(() => {
+    getBookmarkToMovie(dataMovie)
+  }, [router, loading])
+  useEffect(() => {
+    setBookmark(bookmarkData?.category)
+  }, [bookmarkData])
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setBookmark(event.target.value as string)
+  const handleChange = async (event: SelectChangeEvent) => {
+    const payload = { category: event.target.value, movieId: router.query.id }
+    if (bookmark === undefined) {
+      //@ts-ignore
+      addBookmark(payload)
+      console.log("Кино добавлено в закладки")
+    }
+    if (bookmark !== undefined && payload.category != "Удалить из закладок") {
+      //@ts-ignore
+      updateBookmark(payload)
+      console.log("кино добавлено в другие закладки")
+    }
+    if (payload.category == "Удалить из закладок") {
+      //@ts-ignore
+      addBookmark(payload)
+      console.log("кино удалено из закладок")
+    }
   }
   return (
     <div className={styles.wrapper}>
@@ -65,7 +99,7 @@ const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
-            Добавить в закладки
+            {bookmarkData ? bookmarkData.category : "Добавить в закладки"}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"

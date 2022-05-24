@@ -21,12 +21,14 @@ const CommentsBlock = () => {
   }, [])
   return (
     <div className={styles.wrapper}>
-      <strong className={styles.title}>Комментарии 4034</strong>
+      <strong className={styles.title}>Комментарии {comments.length}</strong>
       <CreateCommentForm />
       {isLoading ? (
         <p>loading...</p>
       ) : (
-        comments.map((comment) => <CommenttItem key={comment._id} comment={comment} />)
+        comments.map((comment) => (
+          <CommenttItem key={comment._id} comment={comment} />
+        ))
       )}
     </div>
   )
