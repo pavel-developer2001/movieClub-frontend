@@ -1,4 +1,4 @@
-import React from "react"
+import { FC, memo, useEffect, useState } from "react"
 import styles from "./BodyUserProfile.module.scss"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
@@ -8,9 +8,26 @@ import { a11yProps } from "../../../UI/TabPanel"
 import AsPartOfTheTeam from "../AsPartOfTheTeam"
 import CreateTeam from "../CreateTeam"
 import TeamInvitation from "../TeamInvitation"
+import { useSelector } from "react-redux"
+import { useActions } from "../../../../hooks/useActions"
+import {
+  selectBookMarkLoading,
+  selectBookMarksData,
+} from "../../../../store/modules/bookmark/bookmark.selector"
+import MovieCard from "../../../UI/MovieCard"
 
-const BodyUserProfile = () => {
-  const [value, setValue] = React.useState(0)
+interface BodyUserProfileProps {
+  user: any
+}
+
+const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
+  const { getBookmarks } = useActions()
+  const [value, setValue] = useState(0)
+  const bookmarks = useSelector(selectBookMarksData)
+  const isLoading = useSelector(selectBookMarkLoading)
+  useEffect(() => {
+    getBookmarks(user._id)
+  }, [user])
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -29,10 +46,24 @@ const BodyUserProfile = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        id: 2123
+        id: {user?._id}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Закладки
+        <div className={styles.bookmark}>
+          {isLoading ? (
+            <p>loading...</p>
+          ) : bookmarks.length > 0 ? (
+            bookmarks.map((mark) => (
+              <MovieCard
+                key={mark._id}
+                //@ts-ignore
+                movie={mark.movie}
+              />
+            ))
+          ) : (
+            <p>Пусто</p>
+          )}
+        </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <AsPartOfTheTeam />
@@ -43,4 +74,4 @@ const BodyUserProfile = () => {
   )
 }
 
-export default BodyUserProfile
+export default memo(BodyUserProfile)

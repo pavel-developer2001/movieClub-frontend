@@ -1,10 +1,13 @@
 import { AccountCircle } from "@mui/icons-material"
 import Avatar from "@mui/material/Avatar"
-import React from "react"
+import React, { FC, memo } from "react"
 import styles from "./HeaderUserProfile.module.scss"
 
-const HeaderUserProfile = () => {
-  const coverPerson = true
+interface HeaderUserProfileProps {
+  user: any
+}
+
+const HeaderUserProfile: FC<HeaderUserProfileProps> = ({ user }) => {
   const parameteres = [
     { count: "15.9 K", title: "Просмотрено" },
     { count: "11 K", title: "Лайков" },
@@ -13,10 +16,10 @@ const HeaderUserProfile = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left}>
-        {coverPerson ? (
+        {user?.avatar ? (
           <Avatar
             alt="Remy Sharp"
-            src="http://static.hdrezka.sx/i/2022/1/24/nca51a7b11885om13v13x.jpeg"
+            src={user?.avatar}
             sx={{ width: 152, height: 152 }}
           />
         ) : (
@@ -24,7 +27,7 @@ const HeaderUserProfile = () => {
         )}
       </div>
       <div className={styles.rigth}>
-        <strong>Heodark</strong>
+        <strong>{user?.name}</strong>
         <div className={styles.data}>
           {parameteres.map((item, index) => (
             <div key={index}>
@@ -37,4 +40,4 @@ const HeaderUserProfile = () => {
   )
 }
 
-export default HeaderUserProfile
+export default memo(HeaderUserProfile)

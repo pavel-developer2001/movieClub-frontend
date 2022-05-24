@@ -14,7 +14,6 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ menuId, setAnchorEl, user }) => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   return (
     <IconButton
       size="large"

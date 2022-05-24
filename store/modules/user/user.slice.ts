@@ -79,7 +79,7 @@ const userSlice = createSlice({
         state.isAuth = false
       })
       .addCase(userCheckout.fulfilled, (state, action) => {
-        state.user = action.payload.data
+        state.user = action.payload.data.user
         window.localStorage.setItem(
           "movie-token",
           action.payload.data.accessToken
