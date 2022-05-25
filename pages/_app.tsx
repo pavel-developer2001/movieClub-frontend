@@ -11,9 +11,11 @@ import { checkAuth } from "../store/modules/user/user.slice"
 import { token } from "../services"
 import { getUserData, userCheckout } from "../store/modules/user/user.actions"
 import jwt_decode from "jwt-decode"
+import { useRouter } from "next/router"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const isBrowser = typeof window !== "undefined"
+  const router = useRouter()
   const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
   const userId = token ? (jwt_decode(token) as any).sub : null
@@ -29,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       //@ts-ignore
       dispatch(getUserData(userId))
     }
-  }, [])
+  }, [router.pathname])
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)

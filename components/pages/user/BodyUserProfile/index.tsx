@@ -16,6 +16,7 @@ import {
 } from "../../../../store/modules/bookmark/bookmark.selector"
 import MovieCard from "../../../UI/MovieCard"
 import ListInvitations from "../ListInvitations"
+import { selectIsAuth } from "../../../../store/modules/user/user.selector"
 
 interface BodyUserProfileProps {
   user: any
@@ -23,6 +24,7 @@ interface BodyUserProfileProps {
 
 const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
   const { getBookmarks } = useActions()
+  const isAuth = useSelector(selectIsAuth)
   const [value, setValue] = useState(0)
   const bookmarks = useSelector(selectBookMarksData)
   const isLoading = useSelector(selectBookMarkLoading)
@@ -68,9 +70,13 @@ const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <AsPartOfTheTeam />
-        <CreateTeam />
-        <TeamInvitation />
-        <ListInvitations />
+        {isAuth && (
+          <>
+            <CreateTeam />
+            <TeamInvitation />
+            <ListInvitations />
+          </>
+        )}
       </TabPanel>
     </Box>
   )

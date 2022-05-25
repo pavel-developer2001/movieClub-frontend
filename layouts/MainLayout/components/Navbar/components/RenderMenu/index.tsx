@@ -1,11 +1,11 @@
-import React, { FC, memo } from "react"
+import React, { FC, memo, useEffect, useState } from "react"
 import MenuItem from "@mui/material/MenuItem"
 import Menu from "@mui/material/Menu"
 import Link from "next/link"
 import { IUser } from "../../../../../../store/modules/user/types/IUser"
 import { useActions } from "../../../../../../hooks/useActions"
-import { token } from "../../../../../../services"
-import jwt_decode from "jwt-decode"
+import { useSelector } from "react-redux"
+import { selectIsAuth } from "../../../../../../store/modules/user/user.selector"
 
 interface RenderMenuProps {
   menuId: string
@@ -24,7 +24,11 @@ const RenderMenu: FC<RenderMenuProps> = ({
 }) => {
   const { userExit } = useActions()
   const isMenuOpen = Boolean(anchorEl)
-
+  const isAuth = useSelector(selectIsAuth)
+  const [userData, setUserData] = useState<null | undefined | IUser>(null)
+  useEffect(() => {
+    setUserData(user)
+  }, [user])
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
   }
@@ -53,11 +57,12 @@ const RenderMenu: FC<RenderMenuProps> = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link href={`/user/${(jwt_decode(token) as any).sub}`}>
-          Мой профиль
-        </Link>
-      </MenuItem>
+      {userData?._id !== undefined && (
+        <MenuItem onClick={handleMenuClose}>
+          {isAuth && <Link href={`/user/${userData?._id}`}>Мой профиль</Link>}
+        </MenuItem>
+      )}
+
       <MenuItem onClick={handleMenuClose}>
         <Link href="/create-movie">Добавить кино</Link>
       </MenuItem>

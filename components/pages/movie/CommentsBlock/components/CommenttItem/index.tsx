@@ -10,6 +10,8 @@ import ChatSharpIcon from "@mui/icons-material/ChatSharp"
 import ReplySharpIcon from "@mui/icons-material/ReplySharp"
 import Button from "@mui/material/Button"
 import CreateCommentForm from "../CreateCommentForm"
+import { selectIsAuth } from "../../../../../../store/modules/user/user.selector"
+import { useSelector } from "react-redux"
 
 interface CommenttItemProps {
   isShowBtn?: boolean
@@ -19,6 +21,7 @@ interface CommenttItemProps {
 const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
   const [isShowForm, setIsShowForm] = useState(false)
   const [isShowParentComments, setIsShowPrrentComments] = useState(false)
+  const isAuth = useSelector(selectIsAuth)
   return (
     <div className={styles.wrapper}>
       <Link href={`/user/${comment.user._id}`}>
@@ -44,25 +47,33 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
           <p>{comment.commentText}</p>
         </div>
         <div className={styles.footer}>
-          <Tooltip title="Лайк">
-            <IconButton aria-label="create">
-              <ExpandLessIcon />
-            </IconButton>
-          </Tooltip>
+          {isAuth && (
+            <Tooltip title="Лайк">
+              <IconButton aria-label="create">
+                <ExpandLessIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           <span>{comment.countLikes}</span>
-          <Tooltip title="Дизлайк">
-            <IconButton aria-label="create">
-              <ExpandMoreIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Ответить">
-            <IconButton
-              onClick={() => setIsShowForm(!isShowForm)}
-              aria-label="create"
-            >
-              <ReplySharpIcon />
-            </IconButton>
-          </Tooltip>
+          {isAuth && (
+            <Tooltip title="Дизлайк">
+              <IconButton aria-label="create">
+                <ExpandMoreIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+
+          {isAuth && (
+            <Tooltip title="Ответить">
+              <IconButton
+                onClick={() => setIsShowForm(!isShowForm)}
+                aria-label="create"
+              >
+                <ReplySharpIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+
           {comment.parentId && isShowBtn && (
             <Tooltip title="Ответы">
               <Button
@@ -75,7 +86,12 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
             </Tooltip>
           )}
         </div>
-        {isShowForm && <CreateCommentForm whom={"@" + comment.user.name} parentId={comment._id}/>}
+        {isShowForm && (
+          <CreateCommentForm
+            whom={"@" + comment.user.name}
+            parentId={comment._id}
+          />
+        )}
         {comment.parentId &&
           isShowParentComments &&
           new Array(5)

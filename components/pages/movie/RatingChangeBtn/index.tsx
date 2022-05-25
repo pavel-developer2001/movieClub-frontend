@@ -11,9 +11,11 @@ import {
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { useActions } from "../../../../hooks/useActions"
+import { selectIsAuth } from "../../../../store/modules/user/user.selector"
 
 const RatingChangeBtn = () => {
   const router = useRouter()
+  const isAuth = useSelector(selectIsAuth)
   const [open, setOpen] = useState(false)
   const ratingData = useSelector(selectRatingItemData)
 
@@ -39,7 +41,7 @@ const RatingChangeBtn = () => {
     { rating: 1, text: "**********" },
   ]
   useEffect(() => {
-    getRating(dataMovie)
+    if (isAuth) getRating(dataMovie)
   }, [router])
   useEffect(() => {
     setRating(ratingData?.rating)
@@ -66,35 +68,37 @@ const RatingChangeBtn = () => {
   }
 
   return (
-    <div>
-      <span>{loading ? <p>loading</p> : ratingData.rating}</span>
-      <Button onClick={handleOpen} className={styles.btn}>
-        <StarIcon className={styles.icon} />
+    isAuth && (
+      <div>
+        <span>{loading ? <p>loading</p> : ratingData.rating}</span>
+        <Button onClick={handleOpen} className={styles.btn}>
+          <StarIcon className={styles.icon} />
 
-        <span>8.7 (голосов: 631)</span>
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className={styles.box}>
-          <div className={styles.openModal}>
-            {ratingArray.map((rat, index) => (
-              <div
-                key={index}
-                className={styles.rating}
-                onClick={() => handleChangeRating(rat.rating)}
-              >
-                {rat.rating} <StarIcon className={styles.icon} />
-                <span>{rat.text}</span>
-              </div>
-            ))}
-          </div>
-        </Box>
-      </Modal>
-    </div>
+          <span>8.7 (голосов: 631)</span>
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className={styles.box}>
+            <div className={styles.openModal}>
+              {ratingArray.map((rat, index) => (
+                <div
+                  key={index}
+                  className={styles.rating}
+                  onClick={() => handleChangeRating(rat.rating)}
+                >
+                  {rat.rating} <StarIcon className={styles.icon} />
+                  <span>{rat.text}</span>
+                </div>
+              ))}
+            </div>
+          </Box>
+        </Modal>
+      </div>
+    )
   )
 }
 

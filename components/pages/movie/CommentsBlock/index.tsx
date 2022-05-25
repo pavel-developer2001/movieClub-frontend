@@ -9,12 +9,14 @@ import styles from "./CommentsBlock.module.scss"
 import CommenttItem from "./components/CommenttItem"
 import CreateCommentForm from "./components/CreateCommentForm"
 import { useSelector } from "react-redux"
+import { selectIsAuth } from "../../../../store/modules/user/user.selector"
 
 const CommentsBlock = () => {
   const { getComments } = useActions()
   const router = useRouter()
   const comments = useSelector(selectCommentsData)
   const isLoading = useSelector(selectCommentLoading)
+  const isAuth = useSelector(selectIsAuth)
   useEffect(() => {
     //@ts-ignore
     getComments(router.query.id)
@@ -22,7 +24,8 @@ const CommentsBlock = () => {
   return (
     <div className={styles.wrapper}>
       <strong className={styles.title}>Комментарии {comments.length}</strong>
-      <CreateCommentForm />
+      {isAuth && <CreateCommentForm />}
+
       {isLoading ? (
         <p>loading...</p>
       ) : (

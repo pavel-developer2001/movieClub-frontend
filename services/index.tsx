@@ -1,7 +1,7 @@
 import axios from "axios"
 import UserApi from "./user-api"
 
-export const token =
+export const token: any =
   typeof window !== "undefined" && window.localStorage.getItem("movie-token")
 
 const API_URL = "http://localhost:5000/api"
@@ -12,6 +12,7 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use((config) => {
+  //@ts-ignore
   config.headers.Authorization = `Bearer ${token}`
   return config
 })

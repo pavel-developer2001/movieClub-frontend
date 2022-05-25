@@ -83,9 +83,7 @@ const Auth = () => {
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {login ? "Войти" : "Регистрация"}
-          </Typography>
+          {login ? "Войти" : "Регистрация"}
         </BootstrapDialogTitle>
 
         <DialogContent dividers>

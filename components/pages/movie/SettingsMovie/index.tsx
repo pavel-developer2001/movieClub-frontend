@@ -16,6 +16,7 @@ import {
   selectBookMarkLoading,
 } from "../../../../store/modules/bookmark/bookmark.selector"
 import { useSelector } from "react-redux"
+import { selectIsAuth } from "../../../../store/modules/user/user.selector"
 
 interface SettingsMovieProps {
   id: number
@@ -24,6 +25,7 @@ interface SettingsMovieProps {
 
 const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
   const router = useRouter()
+  const isAuth = useSelector(selectIsAuth)
   const { addBookmark, updateBookmark, getBookmarkToMovie } = useActions()
   const bookmarkData = useSelector(selectBookMarkItemData)
   const [bookmark, setBookmark] = useState()
@@ -55,10 +57,10 @@ const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
     movieId: router.query.id,
   }
   useEffect(() => {
-    getBookmarkToMovie(dataMovie)
+    if (isAuth) getBookmarkToMovie(dataMovie)
   }, [router, loading])
   useEffect(() => {
-    setBookmark(bookmarkData?.category)
+    if (isAuth) setBookmark(bookmarkData?.category)
   }, [bookmarkData])
 
   const handleChange = async (event: SelectChangeEvent) => {
@@ -91,38 +93,42 @@ const SettingsMovie: FC<SettingsMovieProps> = ({ id, cover }) => {
         width={250}
         height={338}
       />
-      <Button variant="outlined">
-        <Link href={`/movie/${id}/upload/`}>
-          <a>Добавить видео</a>
-        </Link>
-      </Button>
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
-            {bookmarkData ? bookmarkData.category : "Добавить в закладки"}
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={bookmark}
-            label="Age"
-            onChange={handleChange}
-          >
-            {bookmarksArray.map((bookmark, index) => (
-              <MenuItem key={index} value={bookmark.title}>
-                {bookmark.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+      {isAuth && (
+        <>
+          <Button variant="outlined">
+            <Link href={`/movie/${id}/upload/`}>
+              <a>Добавить видео</a>
+            </Link>
+          </Button>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                {bookmarkData ? bookmarkData.category : "Добавить в закладки"}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={bookmark}
+                label="Age"
+                onChange={handleChange}
+              >
+                {bookmarksArray.map((bookmark, index) => (
+                  <MenuItem key={index} value={bookmark.title}>
+                    {bookmark.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
 
-      <Button variant="text">
-        <Link href={`/movie/${id}/edit`}>Редактировать</Link>
-      </Button>
-      <Button variant="text" startIcon={<ReportIcon />}>
-        Пожаловаться
-      </Button>
+          <Button variant="text">
+            <Link href={`/movie/${id}/edit`}>Редактировать</Link>
+          </Button>
+          <Button variant="text" startIcon={<ReportIcon />}>
+            Пожаловаться
+          </Button>
+        </>
+      )}
     </div>
   )
 }
