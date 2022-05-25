@@ -40,16 +40,7 @@ const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null)
 
-  const isMenuOpen = Boolean(anchorEl)
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget)
-  }
-
   const menuId = "primary-search-account-menu"
-
-  const mobileMenuId = "primary-search-account-menu-mobile"
 
   return (
     <div className={styles.main}>
@@ -121,16 +112,7 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <DynamicMobileMenu />
-            </IconButton>
+            <DynamicMobileMenu />
           </Box>
         </Toolbar>
       </AppBar>

@@ -6,7 +6,7 @@ import NextNProgress from "nextjs-progressbar"
 import { wrapper } from "../store"
 import { useDispatch, useSelector } from "react-redux"
 import { selectIsAuth } from "../store/modules/user/user.selector"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { checkAuth } from "../store/modules/user/user.slice"
 import { token } from "../services"
 import { getUserData, userCheckout } from "../store/modules/user/user.actions"
@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const userId = token ? (jwt_decode(token) as any).sub : null
   useEffect(() => {
     if (token) {
+      //@ts-ignore
       dispatch(userCheckout())
       dispatch(checkAuth(!isAuth))
     }
@@ -29,13 +30,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       dispatch(getUserData(userId))
     }
   }, [])
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{"MovieClub"}</title>
       </Head>
-      {isBrowser && (
+      {isBrowser && mounted && (
         <ThemeProvider>
           <NextNProgress />
           <Component {...pageProps} />

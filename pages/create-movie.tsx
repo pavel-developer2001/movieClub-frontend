@@ -139,12 +139,8 @@ const CreateMoviePage: NextPage = () => {
         <div className={styles.header}>
           <div className={styles.top}>
             <Controller
-              render={({ field }) => (
-                <UploadImage
-                  {...field}
-                  image={coverMovie}
-                  setImage={setCoverMovie}
-                />
+              render={() => (
+                <UploadImage image={coverMovie} setImage={setCoverMovie} />
               )}
               name="cover"
               control={control}

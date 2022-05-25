@@ -26,8 +26,8 @@ const TeamContact = () => {
       <strong>Контакты</strong>
       <div className={styles.social}>
         {social.map((item, index) => (
-          <IconButton size="large">
-            <Link href={item.link} key={index}>
+          <IconButton size="large" key={index}>
+            <Link href={item.link}>
               <div className={styles.icon}>{item.icon}</div>
             </Link>{" "}
           </IconButton>

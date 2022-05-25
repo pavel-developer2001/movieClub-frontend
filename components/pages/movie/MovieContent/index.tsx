@@ -46,9 +46,11 @@ const MovieContent: FC<MovieContentProps> = ({ movie }) => {
     },
     {
       component: isLoading ? (
-        <p>loading...</p>
+        <div>loading...</div>
       ) : episodes.length > 0 ? (
-        episodes.map((episode: any) => <VideoPlayer value={episode.url} />)
+        episodes.map((episode: any) => (
+          <VideoPlayer key={episode._id} value={episode.url} />
+        ))
       ) : (
         "Нет видео"
       ),

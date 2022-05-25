@@ -27,7 +27,7 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
   }
   return (
     <div className={styles.wrapper}>
-      <p>{description}</p>
+      <span>{description}</span>
       <div className={styles.categories}>
         {genres.map((genre: any) => (
           <Chip key={genre._id} label={genre.name} className={styles.tag} />
