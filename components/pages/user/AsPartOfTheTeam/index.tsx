@@ -10,7 +10,6 @@ import {
 } from "../../../../store/modules/team/team.selector"
 import { useActions } from "../../../../hooks/useActions"
 
-
 const AsPartOfTheTeam = () => {
   const router = useRouter()
   const teams = useSelector(selectTeamsUserData)
@@ -26,8 +25,10 @@ const AsPartOfTheTeam = () => {
       <div className={styles.data}>
         {isLoading ? (
           <p>loading...</p>
-        ) : (
+        ) : teams.length > 0 ? (
           teams.map((team) => <TeamList key={team._id} team={team} />)
+        ) : (
+          <p>Нигде не состоите </p>
         )}
       </div>
     </div>

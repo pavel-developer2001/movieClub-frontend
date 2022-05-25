@@ -15,14 +15,14 @@ interface UserState {
   isAuth: boolean
   status: null | string
   loading: boolean
-  error: null
+  error: string | undefined
 }
 const initialState: UserState = {
   user: {},
   isAuth: false,
   status: null,
   loading: true,
-  error: null,
+  error: "",
 }
 const userSlice = createSlice({
   name: "user",
@@ -50,6 +50,10 @@ const userSlice = createSlice({
         state.loading = false
         state.isAuth = true
       })
+      .addCase(loginUsers.rejected, (state, action) => {
+        state.error = action.error.message
+        state.loading = false
+      })
       .addCase(registerUsers.fulfilled, (state, action) => {
         state.user = action.payload.data
         window.localStorage.setItem(
@@ -58,6 +62,10 @@ const userSlice = createSlice({
         )
         state.loading = false
         state.isAuth = true
+      })
+      .addCase(registerUsers.rejected, (state, action) => {
+        console.log(action)
+        state.loading = false
       })
       .addCase(userGoogleAuth.fulfilled, (state, action) => {
         state.user = action.payload.data

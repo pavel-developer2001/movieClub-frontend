@@ -29,6 +29,7 @@ const Register = () => {
   })
   const { registerUsers } = useActions()
   const onSubmit = async (data: any) => {
+    if (data.password !== data.password2) alert("Пароли не совпадают")
     if (data.password === data.password2) {
       registerUsers(data)
       reset()
