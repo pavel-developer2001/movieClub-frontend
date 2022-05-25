@@ -8,6 +8,7 @@ import { TextField, Typography } from "@mui/material"
 import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useActions } from "../../../../hooks/useActions"
 
 const CreateTeamFormSchema = yup.object().shape({
   title: yup.string().min(4, "Минимальная длина названия 4 символа").required(),
@@ -35,10 +36,20 @@ const CreateTeam = () => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [cover, setCover] = useState<string | File | null>(null)
+  const { addNewTeam } = useActions()
 
   const onSubmit = async (data: any) => {
-    console.log("DATA", data, cover)
+    const formData = new FormData()
+    //@ts-ignore
+    formData.append("teamCover", cover)
+    formData.append("teamName", data.title)
+    formData.append("teamSubtitle", data.subTitle)
+    formData.append("teamDescription", data.description)
+    //@ts-ignore
+    await addNewTeam(formData)
     reset()
+    setCover(null)
+    setOpen(false)
   }
   return (
     <div>

@@ -15,6 +15,7 @@ import {
   selectBookMarksData,
 } from "../../../../store/modules/bookmark/bookmark.selector"
 import MovieCard from "../../../UI/MovieCard"
+import ListInvitations from "../ListInvitations"
 
 interface BodyUserProfileProps {
   user: any
@@ -69,6 +70,7 @@ const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
         <AsPartOfTheTeam />
         <CreateTeam />
         <TeamInvitation />
+        <ListInvitations />
       </TabPanel>
     </Box>
   )

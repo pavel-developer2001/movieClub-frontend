@@ -5,6 +5,7 @@ import ratingSlice from "./modules/rating/rating.slice"
 import commentSlice from "./modules/comment/comment.slice"
 import bookmarkSlice from "./modules/bookmark/bookmark.slice"
 import episodeSlice from "./modules/episode/episode.slice"
+import teamSlice from "./modules/team/team.slice"
 
 export const rootReducer = combineReducers({
   user: userSlice,
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
   comment: commentSlice,
   bookmark: bookmarkSlice,
   episode: episodeSlice,
+  team: teamSlice,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
