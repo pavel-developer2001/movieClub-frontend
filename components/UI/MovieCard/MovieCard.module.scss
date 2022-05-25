@@ -40,7 +40,8 @@
     flex-direction: column;
     transform: translate(5px, -2.5rem);
     margin: 5px 3px;
-    max-width: 149px;
+    max-width: 140px;
+    word-break: break-all;
     strong {
       font-size: 15px;
       font-weight: 500;

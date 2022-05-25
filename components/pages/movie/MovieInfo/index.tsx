@@ -14,6 +14,7 @@ interface MovieInfoProps {
   year: number
   englishTitle: string
   title: string
+  status: string
 }
 
 const MovieInfo: FC<MovieInfoProps> = ({
@@ -24,6 +25,7 @@ const MovieInfo: FC<MovieInfoProps> = ({
   year,
   title,
   englishTitle,
+  status,
 }) => {
   const infoArrays = [
     { icon: null, data: age },
@@ -39,7 +41,7 @@ const MovieInfo: FC<MovieInfoProps> = ({
     <div className={styles.wrapper}>
       <span>{englishTitle}</span>
       <h2>
-        {title} <span>[Продолжается]</span>
+        {title} <span>[{status}]</span>
       </h2>
       <div className={styles.parameters}>
         <RatingChangeBtn />

@@ -15,7 +15,7 @@ import {
 import styles from "../../../styles/pages/MoviePage.module.scss"
 
 const MoviePage: NextPage = () => {
-  const movie = useSelector(selectMovieData) // Добавить в таблицу movie на беке колонку status
+  const movie = useSelector(selectMovieData)
   const isLoading = useSelector(selectMovieLoading)
   return (
     <MainLayout>
@@ -26,6 +26,7 @@ const MoviePage: NextPage = () => {
           <SettingsMovie id={movie._id} cover={movie.cover} />
           <div>
             <MovieInfo
+              status={movie.status}
               type={movie.type}
               country={movie.country}
               age={movie.age}
