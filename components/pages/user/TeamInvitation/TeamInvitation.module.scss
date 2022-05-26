@@ -17,3 +17,8 @@
   align-items: center;
   justify-content: center;
 }
+@media (max-width: 890px) {
+  .modal {
+    width: 90%;
+  }
+}

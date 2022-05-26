@@ -25,3 +25,14 @@
     }
   }
 }
+@media (max-width: 656px) {
+  .left {
+    margin-left: 3rem;
+  }
+  .wrapper {
+    justify-content: center;
+  }
+  .rigth {
+    text-align: center;
+  }
+}

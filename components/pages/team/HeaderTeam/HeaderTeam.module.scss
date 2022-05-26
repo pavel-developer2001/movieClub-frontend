@@ -38,3 +38,17 @@
     }
   }
 }
+@media (max-width: 642px) {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .data {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .avatar {
+    margin-left: 5rem;
+  }
+}

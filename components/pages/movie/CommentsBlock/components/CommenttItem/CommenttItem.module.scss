@@ -32,3 +32,18 @@
     }
   }
 }
+@media (max-width: 640px) {
+  .data {
+    width: 70%;
+  }
+}
+@media (max-width: 505px) {
+  .data {
+    width: 50%;
+  }
+}
+@media (max-width: 405px) {
+  .data {
+    width: 40%;
+  }
+}

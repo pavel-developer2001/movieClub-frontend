@@ -9,3 +9,22 @@
 .content {
   margin-top: 15px;
 }
+@media (max-width: 640px) {
+  .wrapper {
+    margin: 0;
+    min-width: 500px;
+    max-width: 500px;
+  }
+}
+@media (max-width: 505px) {
+  .wrapper {
+    min-width: 400px;
+    max-width: 400px;
+  }
+}
+@media (max-width: 405px) {
+  .wrapper {
+    min-width: 300px;
+    max-width: 300px;
+  }
+}

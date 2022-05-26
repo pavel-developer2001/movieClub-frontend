@@ -22,12 +22,17 @@
 }
 @media (max-width: 885px) {
   .wrapper {
+    margin-top: 25px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     strong {
       display: grid;
+      width: 100%;
       text-align: center;
     }
+  }
+  .teamInfo {
+    margin: 25px;
   }
 }
