@@ -1,8 +1,23 @@
 .wrapper {
   display: flex;
+  flex-wrap: wrap;
   margin: 15px 0;
 }
 .body {
   margin-top: 25px;
   display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 1180px) {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 880px) {
+  .body {
+    justify-content: center;
+    align-items: center;
+  }
 }

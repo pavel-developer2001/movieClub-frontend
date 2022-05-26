@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography"
 import Badge from "@mui/material/Badge"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import styles from "./Navbar.module.scss"
-import Auth from "./components/Auth"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import { Button, CircularProgress } from "@mui/material"
@@ -30,6 +29,9 @@ const DynamicChangeThemeButton = dynamic(
     loading: () => <CircularProgress />,
   }
 )
+const DynamicAuth = dynamic(() => import("./components/Auth"), {
+  loading: () => <CircularProgress />,
+})
 const Navbar = () => {
   const isAuth = useSelector(selectIsAuth)
 
@@ -66,7 +68,7 @@ const Navbar = () => {
             <Typography
               noWrap
               sx={{
-                display: { xs: "flex", sm: "flex" },
+                display: { xs: "none", md: "flex" },
                 cursor: "pointer",
               }}
               component="div"
@@ -107,12 +109,12 @@ const Navbar = () => {
                 )}
               </>
             ) : (
-              <Auth />
+              <DynamicAuth />
             )}
           </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <DynamicMobileMenu />
+            <DynamicMobileMenu user={user} />
           </Box>
         </Toolbar>
       </AppBar>

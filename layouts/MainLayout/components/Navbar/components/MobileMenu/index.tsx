@@ -3,20 +3,32 @@ import List from "@mui/material/List"
 import Divider from "@mui/material/Divider"
 import ListItem from "@mui/material/ListItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MenuIcon from "@mui/icons-material/Menu"
-import React from "react"
-import MailIcon from "@mui/icons-material/Mail"
+import React, { FC } from "react"
 import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
+import Link from "next/link"
+import { useActions } from "../../../../../../hooks/useActions"
+import { selectIsAuth } from "../../../../../../store/modules/user/user.selector"
+import { useSelector } from "react-redux"
+import ChangeThemeButton from "../../../../../../components/UI/ChangeThemeButton"
+import dynamic from "next/dynamic"
+import { CircularProgress } from "@mui/material"
 type Anchor = "right"
 
-const MobileMenu = () => {
+const DynamicAuth = dynamic(() => import("../Auth"), {
+  loading: () => <CircularProgress />,
+})
+
+const MobileMenu: FC<any> = ({ user }) => {
+  const { userExit } = useActions()
+  const isAuth = useSelector(selectIsAuth)
   const [state, setState] = React.useState({
     right: false,
   })
-
+  const handleExitUser = () => {
+    userExit()
+  }
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -34,30 +46,33 @@ const MobileMenu = () => {
   const list = (anchor: Anchor) => (
     <Box
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, true)}
+      onKeyDown={toggleDrawer(anchor, true)}
     >
+      {!isAuth && <DynamicAuth />}
+
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button>
+          <Link href={`/movie`}>Каталог</Link>
+        </ListItem>
+        <ListItem button>
+          <ChangeThemeButton />
+        </ListItem>
+        {isAuth && (
+          <>
+            <ListItem button>
+              <Link href={`/user/${user?._id}`}>Мой профиль</Link>
+            </ListItem>
+            <ListItem button>
+              <Link href="/create-movie">Добавить кино</Link>
+            </ListItem>
+            <ListItem button onClick={handleExitUser}>
+              Выйти
+            </ListItem>
+          </>
+        )}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </Box>
   )
 
