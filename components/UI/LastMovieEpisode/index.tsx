@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import React, { FC } from "react"
+import React, { FC, memo } from "react"
 import styles from "./LastMovieEpisode.module.scss"
 
 interface LastMovieEpisodeProps {
@@ -37,4 +37,4 @@ const LastMovieEpisode: FC<LastMovieEpisodeProps> = ({ episode }) => {
   )
 }
 
-export default LastMovieEpisode
+export default memo(LastMovieEpisode)

@@ -1,10 +1,10 @@
+import { CircularProgress } from "@mui/material"
 import { GetServerSideProps, NextPage } from "next"
+import dynamic from "next/dynamic"
 import React from "react"
 import { useSelector } from "react-redux"
-import MovieContent from "../../../components/pages/movie/MovieContent"
 import MovieInfo from "../../../components/pages/movie/MovieInfo"
 import SettingsMovie from "../../../components/pages/movie/SettingsMovie"
-import TeamList from "../../../components/pages/movie/TeamList"
 import MainLayout from "../../../layouts/MainLayout"
 import { wrapper } from "../../../store"
 import { getMovie } from "../../../store/modules/movie/movie.actions"
@@ -14,13 +14,22 @@ import {
 } from "../../../store/modules/movie/movie.selector"
 import styles from "../../../styles/pages/MoviePage.module.scss"
 
+const DynamicMovieContent = dynamic(
+  () => import("../../../components/pages/movie/MovieContent"),
+  { loading: () => <CircularProgress /> }
+)
+const DynamicTeamList = dynamic(
+  () => import("../../../components/pages/movie/TeamList"),
+  { loading: () => <CircularProgress /> }
+)
+
 const MoviePage: NextPage = () => {
   const movie = useSelector(selectMovieData)
   const isLoading = useSelector(selectMovieLoading)
   return (
     <MainLayout>
       {isLoading ? (
-        <p>loading...</p>
+        <CircularProgress />
       ) : (
         <div className={styles.wrapper}>
           <SettingsMovie id={movie._id} cover={movie.cover} />
@@ -36,8 +45,8 @@ const MoviePage: NextPage = () => {
               englishTitle={movie.englishTitle}
             />
             <div className={styles.body}>
-              <MovieContent movie={movie} />
-              <TeamList />
+              <DynamicMovieContent movie={movie} />
+              <DynamicTeamList />
             </div>
           </div>
         </div>

@@ -13,6 +13,12 @@ export const getUserData = createAsyncThunk(
     return await UserApi.getUser(id)
   }
 )
+export const getUserProfile = createAsyncThunk(
+  "user/getUserProfile",
+  async (id: string) => {
+    return await UserApi.getUser(id)
+  }
+)
 export const loginUsers = createAsyncThunk(
   "user/loginUsers",
   async (payload: { email: string; password: string }) => {

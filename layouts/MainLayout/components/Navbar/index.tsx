@@ -10,7 +10,7 @@ import styles from "./Navbar.module.scss"
 import Auth from "./components/Auth"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { Button } from "@mui/material"
+import { Button, CircularProgress } from "@mui/material"
 import ProfileMenu from "./components/ProfileMenu"
 import RenderMenu from "./components/RenderMenu"
 import {
@@ -21,13 +21,13 @@ import {
 import { useSelector } from "react-redux"
 
 const DynamicMobileMenu = dynamic(() => import("./components/MobileMenu"), {
-  loading: () => <div>loading...</div>,
+  loading: () => <CircularProgress />,
 })
 
 const DynamicChangeThemeButton = dynamic(
   () => import("../../../../components/UI/ChangeThemeButton"),
   {
-    loading: () => <div>loading...</div>,
+    loading: () => <CircularProgress />,
   }
 )
 const Navbar = () => {
@@ -117,7 +117,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       {isLoading ? (
-        <p>load</p>
+        <CircularProgress />
       ) : (
         <RenderMenu
           user={user}

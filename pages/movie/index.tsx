@@ -9,6 +9,7 @@ import {
   selectMovieLoading,
   selectMovies,
 } from "../../store/modules/movie/movie.selector"
+import { CircularProgress } from "@mui/material"
 
 const MovieCatalogPage: NextPage = () => {
   const movies = useSelector(selectMovies)
@@ -16,7 +17,7 @@ const MovieCatalogPage: NextPage = () => {
   return (
     <MainLayout>
       {isLoading ? (
-        <p>loading...</p>
+        <CircularProgress />
       ) : (
         movies.map((movie: any) => (
           <MovieCard
@@ -35,6 +36,7 @@ const MovieCatalogPage: NextPage = () => {
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store) => async (ctx) => {
     try {
+      //@ts-ignore
       await store.dispatch(getMovies())
       return {
         props: {},

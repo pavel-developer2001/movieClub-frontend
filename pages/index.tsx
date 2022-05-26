@@ -1,5 +1,4 @@
 import type { GetStaticProps, NextPage } from "next"
-import LastMovieEpisode from "../components/UI/LastMovieEpisode"
 import MovieCard from "../components/UI/MovieCard"
 import MainLayout from "../layouts/MainLayout"
 import Slider from "react-slick"
@@ -16,6 +15,13 @@ import {
 } from "../store/modules/episode/episode.selector"
 import { useEffect } from "react"
 import { useActions } from "../hooks/useActions"
+import { CircularProgress } from "@mui/material"
+import dynamic from "next/dynamic"
+
+const DynamicLastMovieEpisode = dynamic(
+  () => import("../components/UI/LastMovieEpisode"),
+  { loading: () => <CircularProgress /> }
+)
 
 const Home: NextPage = () => {
   const settings = {
@@ -42,7 +48,7 @@ const Home: NextPage = () => {
   return (
     <MainLayout>
       {isLoading ? (
-        <p>loading...</p>
+        <CircularProgress />
       ) : movies.lenght > 10 ? (
         <div>
           <Slider {...settings}>
@@ -60,10 +66,10 @@ const Home: NextPage = () => {
       )}
       <div>
         {episodeIsLoading ? (
-          <p>loading...</p>
+          <CircularProgress />
         ) : episodes.length > 0 ? (
           episodes.map((episode: any) => (
-            <LastMovieEpisode episode={episode} key={episode._id} />
+            <DynamicLastMovieEpisode episode={episode} key={episode._id} />
           ))
         ) : (
           <p>Нет добавлений</p>

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react"
+import React, { FC, memo, useEffect } from "react"
 import styles from "./AsPartOfTheTeam.module.scss"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,6 +9,7 @@ import {
   selectTeamsUserData,
 } from "../../../../store/modules/team/team.selector"
 import { useActions } from "../../../../hooks/useActions"
+import { CircularProgress } from "@mui/material"
 
 const AsPartOfTheTeam = () => {
   const router = useRouter()
@@ -24,7 +25,7 @@ const AsPartOfTheTeam = () => {
       <strong>В составе</strong>
       <div className={styles.data}>
         {isLoading ? (
-          <p>loading...</p>
+          <CircularProgress />
         ) : teams.length > 0 ? (
           teams.map((team) => <TeamList key={team._id} team={team} />)
         ) : (
@@ -34,7 +35,7 @@ const AsPartOfTheTeam = () => {
     </div>
   )
 }
-const TeamList: FC<{ team: any }> = ({ team }) => {
+const TeamList: FC<{ team: any }> = memo(({ team }) => {
   return (
     <Link href={`/team/${team.team._id}`}>
       <div className={styles.userData}>
@@ -52,6 +53,6 @@ const TeamList: FC<{ team: any }> = ({ team }) => {
       </div>
     </Link>
   )
-}
+})
 
 export default AsPartOfTheTeam

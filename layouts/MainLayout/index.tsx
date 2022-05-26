@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import React, { FC, ReactNode } from "react"
@@ -9,7 +10,7 @@ interface MainLayoutProps {
 }
 
 const DynamicFooter = dynamic(() => import("./components/Footer"), {
-  loading: () => <div>loading...</div>,
+  loading: () => <CircularProgress />,
 })
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {

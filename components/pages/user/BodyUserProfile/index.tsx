@@ -5,18 +5,34 @@ import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
 import { TabPanel } from "../../../UI/TabPanel"
 import { a11yProps } from "../../../UI/TabPanel"
-import AsPartOfTheTeam from "../AsPartOfTheTeam"
-import CreateTeam from "../CreateTeam"
-import TeamInvitation from "../TeamInvitation"
 import { useSelector } from "react-redux"
 import { useActions } from "../../../../hooks/useActions"
 import {
   selectBookMarkLoading,
   selectBookMarksData,
 } from "../../../../store/modules/bookmark/bookmark.selector"
-import MovieCard from "../../../UI/MovieCard"
-import ListInvitations from "../ListInvitations"
 import { selectIsAuth } from "../../../../store/modules/user/user.selector"
+import dynamic from "next/dynamic"
+import { CircularProgress } from "@mui/material"
+
+const DynamicMovieCard = dynamic(() => import("../../../UI/MovieCard"), {
+  loading: () => <CircularProgress />,
+  ssr: false,
+})
+const DynamicAsPartOfTheTeam = dynamic(() => import("../AsPartOfTheTeam"), {
+  loading: () => <CircularProgress />,
+  ssr: false,
+})
+const DynamicCreateTeam = dynamic(() => import("../CreateTeam"), {
+  loading: () => <CircularProgress />,
+  ssr: false,
+})
+const DynamicTeamInvitation = dynamic(() => import("../TeamInvitation"), {
+  loading: () => <CircularProgress />,
+})
+const DynamicListInvitations = dynamic(() => import("../ListInvitations"), {
+  loading: () => <CircularProgress />,
+})
 
 interface BodyUserProfileProps {
   user: any
@@ -54,10 +70,10 @@ const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
       <TabPanel value={value} index={1}>
         <div className={styles.bookmark}>
           {isLoading ? (
-            <p>loading...</p>
+            <CircularProgress />
           ) : bookmarks.length > 0 ? (
             bookmarks.map((mark) => (
-              <MovieCard
+              <DynamicMovieCard
                 key={mark._id}
                 //@ts-ignore
                 movie={mark.movie}
@@ -69,12 +85,12 @@ const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {
         </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <AsPartOfTheTeam />
+        <DynamicAsPartOfTheTeam />
         {isAuth && (
           <>
-            <CreateTeam />
-            <TeamInvitation />
-            <ListInvitations />
+            <DynamicCreateTeam />
+            <DynamicTeamInvitation />
+            <DynamicListInvitations />
           </>
         )}
       </TabPanel>

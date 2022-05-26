@@ -6,10 +6,15 @@ import {
   selectCommentsData,
 } from "../../../../store/modules/comment/comment.selector"
 import styles from "./CommentsBlock.module.scss"
-import CommenttItem from "./components/CommenttItem"
 import CreateCommentForm from "./components/CreateCommentForm"
 import { useSelector } from "react-redux"
 import { selectIsAuth } from "../../../../store/modules/user/user.selector"
+import { CircularProgress } from "@mui/material"
+import dynamic from "next/dynamic"
+
+const DynamicCommenttItem = dynamic(() => import("./components/CommenttItem"), {
+  loading: () => <CircularProgress />,
+})
 
 const CommentsBlock = () => {
   const { getComments } = useActions()
@@ -27,10 +32,10 @@ const CommentsBlock = () => {
       {isAuth && <CreateCommentForm />}
 
       {isLoading ? (
-        <p>loading...</p>
+        <CircularProgress />
       ) : (
         comments.map((comment) => (
-          <CommenttItem key={comment._id} comment={comment} />
+          <DynamicCommenttItem key={comment._id} comment={comment} />
         ))
       )}
     </div>

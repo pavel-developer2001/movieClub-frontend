@@ -3,9 +3,7 @@ import styles from "./MovieContent.module.scss"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
-import VideoPlayer from "../../../UI/VideoPlayer"
 import DescriptionMovie from "../DescriptionMovie"
-import CommentsBlock from "../CommentsBlock"
 import { TabPanel } from "../../../UI/TabPanel"
 import { a11yProps } from "../../../UI/TabPanel"
 import { useSelector } from "react-redux"
@@ -15,6 +13,15 @@ import {
 } from "../../../../store/modules/episode/episode.selector"
 import { useRouter } from "next/router"
 import { useActions } from "../../../../hooks/useActions"
+import { CircularProgress } from "@mui/material"
+import dynamic from "next/dynamic"
+
+const DynamicCommentsBlock = dynamic(() => import("../CommentsBlock"), {
+  loading: () => <CircularProgress />,
+})
+const DynamicVideoPlayer = dynamic(() => import("../../../UI/VideoPlayer"), {
+  loading: () => <CircularProgress />,
+})
 
 interface MovieContentProps {
   movie: any
@@ -46,17 +53,17 @@ const MovieContent: FC<MovieContentProps> = ({ movie }) => {
     },
     {
       component: isLoading ? (
-        <div>loading...</div>
+        <CircularProgress />
       ) : episodes.length > 0 ? (
         episodes.map((episode: any) => (
-          <VideoPlayer key={episode._id} value={episode.url} />
+          <DynamicVideoPlayer key={episode._id} value={episode.url} />
         ))
       ) : (
         "Нет видео"
       ),
       index: 1,
     },
-    { component: <CommentsBlock />, index: 2 },
+    { component: <DynamicCommentsBlock />, index: 2 },
   ]
   return (
     <div className={styles.wrapper}>

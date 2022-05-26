@@ -3,6 +3,7 @@ import { HYDRATE } from "next-redux-wrapper"
 import { IUser } from "./types/IUser"
 import {
   getUserData,
+  getUserProfile,
   loginUsers,
   registerUsers,
   userCheckout,
@@ -12,6 +13,7 @@ import {
 
 interface UserState {
   user: IUser | {}
+  profile: IUser | {}
   isAuth: boolean
   status: null | string
   loading: boolean
@@ -19,6 +21,7 @@ interface UserState {
 }
 const initialState: UserState = {
   user: {},
+  profile: {},
   isAuth: false,
   status: null,
   loading: true,
@@ -39,6 +42,8 @@ const userSlice = createSlice({
       .addCase(HYDRATE, (state, action) => {
         //@ts-ignore
         state.user = action.payload.user.user
+        //@ts-ignore
+        state.profile = action.payload.user.profile
         state.loading = false
       })
       .addCase(loginUsers.fulfilled, (state, action) => {
@@ -78,6 +83,10 @@ const userSlice = createSlice({
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         state.user = action.payload.data
+        state.loading = false
+      })
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        state.profile = action.payload.data
         state.loading = false
       })
       .addCase(userExit.fulfilled, (state, action) => {

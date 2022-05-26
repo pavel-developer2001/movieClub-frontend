@@ -1,8 +1,12 @@
-import { Chip } from "@mui/material"
+import { Chip, CircularProgress } from "@mui/material"
+import dynamic from "next/dynamic"
 import React, { FC } from "react"
 import Slider from "react-slick"
-import PersonData from "../PersonData"
 import styles from "./DescriptionMovie.module.scss"
+
+const DynamicPersonData = dynamic(() => import("../PersonData"), {
+  loading: () => <CircularProgress />,
+})
 
 interface DescriptionMovieProps {
   description: string
@@ -37,7 +41,7 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
         <strong>Режисёр</strong>
         <div className={styles.list}>
           {new Array(2).fill("").map((_, index) => (
-            <PersonData key={index} />
+            <DynamicPersonData key={index} />
           ))}
         </div>
       </div>
@@ -46,7 +50,7 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
         <div style={{ paddingTop: "15px" }}>
           <Slider {...settings}>
             {new Array(8).fill("").map((_, index) => (
-              <PersonData key={index} />
+              <DynamicPersonData key={index} />
             ))}
           </Slider>
         </div>

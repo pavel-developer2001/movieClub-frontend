@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, memo } from "react"
 import styles from "./MovieInfo.module.scss"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
@@ -55,4 +55,4 @@ const MovieInfo: FC<MovieInfoProps> = ({
   )
 }
 
-export default MovieInfo
+export default memo(MovieInfo)

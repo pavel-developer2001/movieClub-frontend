@@ -1,5 +1,5 @@
 import Image from "next/image"
-import React, { FC } from "react"
+import React, { FC, memo } from "react"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import Link from "next/link"
 import styles from "./MovieCard.module.scss"
@@ -50,4 +50,4 @@ const MovieCard: FC<MovieCardProps> = ({
   )
 }
 
-export default MovieCard
+export default memo(MovieCard)

@@ -9,5 +9,8 @@ export const selectIsAuth = (state: RootState): boolean =>
 export const selectUserData = (state: RootState): IUser =>
   selectUser(state).user as IUser
 
+export const selectProfileData = (state: RootState): IUser =>
+  selectUser(state).profile as IUser
+
 export const selectUserLoading = (state: RootState): boolean =>
   selectUser(state).loading
