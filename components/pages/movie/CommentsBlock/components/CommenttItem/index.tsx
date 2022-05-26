@@ -54,7 +54,7 @@ const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {
               </IconButton>
             </Tooltip>
           )}
-          <span>{comment.countLikes}</span>
+          <span>{comment.count_likes}</span>
           {isAuth && (
             <Tooltip title="Дизлайк">
               <IconButton aria-label="create">
