@@ -7,7 +7,7 @@ export default class BookmarkApi {
   }) {
     return instance.post("/bookmark/", payload)
   }
-  static async getAllBookMarksForUser(id: string | string[] | undefined) {
+  static async getAllBookMarksForUser(id: number) {
     return instance.get("/bookmark/" + id)
   }
   static async updateBookMark(payload: { category: string; movieId: number }) {

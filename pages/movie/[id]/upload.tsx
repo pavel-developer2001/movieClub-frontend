@@ -26,27 +26,29 @@ const UploadPage: NextPage = () => {
     setVideo(null)
   }
   const handleAddEpisode = async () => {
-    if (!video) alert("Загрузите видео!")
+    if (!video) return alert("Загрузите видео!")
     try {
-      setIsLoading(true)
+      if (video) {
+        setIsLoading(true)
 
-      const formData = new FormData()
-      //@ts-ignore
-      formData.append("video", video)
-      //@ts-ignore
-      formData.append("movieId", router.query.id)
-      //@ts-ignore
-      formData.append("season", season)
-      //@ts-ignore
-      formData.append("episode", episode)
-      //@ts-ignore
-      await addNewEpisode(formData)
-      setEpisode(undefined)
-      setVideo(null)
-      setSeason(undefined)
-      setIsLoading(false)
-      setTestVideo(null)
-      router.push("/movie/" + router.query.id)
+        const formData = new FormData()
+        //@ts-ignore
+        formData.append("video", video)
+        //@ts-ignore
+        formData.append("movieId", router.query.id)
+        //@ts-ignore
+        formData.append("season", season)
+        //@ts-ignore
+        formData.append("episode", episode)
+        //@ts-ignore
+        await addNewEpisode(formData)
+        setEpisode(undefined)
+        setVideo(null)
+        setSeason(undefined)
+        setIsLoading(false)
+        setTestVideo(null)
+        router.push("/movie/" + router.query.id)
+      }
     } catch (error) {
       console.log(error)
     }

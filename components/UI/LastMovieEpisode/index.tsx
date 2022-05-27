@@ -1,10 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 import React, { FC, memo } from "react"
+import { IEpisode } from "../../../store/modules/episode/types/IEpisode"
+import { ILastEpisode } from "../../../store/modules/episode/types/ILastEpisode"
 import styles from "./LastMovieEpisode.module.scss"
 
 interface LastMovieEpisodeProps {
-  episode: any
+  episode: ILastEpisode
 }
 
 const LastMovieEpisode: FC<LastMovieEpisodeProps> = ({ episode }) => {

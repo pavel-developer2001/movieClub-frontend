@@ -12,10 +12,11 @@ import Button from "@mui/material/Button"
 import CreateCommentForm from "../CreateCommentForm"
 import { selectIsAuth } from "../../../../../../store/modules/user/user.selector"
 import { useSelector } from "react-redux"
+import { IComment } from "../../../../../../store/modules/comment/types/IComment"
 
 interface CommenttItemProps {
   isShowBtn?: boolean
-  comment: any
+  comment: IComment | any
 }
 
 const CommenttItem: FC<CommenttItemProps> = ({ isShowBtn = true, comment }) => {

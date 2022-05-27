@@ -1,7 +1,7 @@
 export interface IGenre {
   createdAt: string
   name: string
-  id: number
+  _id: number
   movieId: number
   updatedAt: string
 }

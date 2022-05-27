@@ -19,7 +19,7 @@ const MovieCatalogPage: NextPage = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        movies.map((movie: any) => (
+        movies.map((movie) => (
           <MovieCard
             key={movie._id}
             movie={movie}

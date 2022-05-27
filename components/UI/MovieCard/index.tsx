@@ -3,13 +3,14 @@ import React, { FC, memo } from "react"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import Link from "next/link"
 import styles from "./MovieCard.module.scss"
+import { IMovie } from "../../../store/modules/movie/types/IMovie"
 
 interface MovieCardProps {
   width?: string
   height?: string
   widthCover?: number
   heightCover?: number
-  movie: any
+  movie: IMovie
 }
 
 const MovieCard: FC<MovieCardProps> = ({

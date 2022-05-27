@@ -15,7 +15,7 @@ export const updateBookmark = createAsyncThunk(
 )
 export const getBookmarks = createAsyncThunk(
   "bookmark/getBookmarks",
-  async (id: string | string[] | undefined) => {
+  async (id: number) => {
     return await BookmarkApi.getAllBookMarksForUser(id)
   }
 )

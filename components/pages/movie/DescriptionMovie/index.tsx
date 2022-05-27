@@ -2,6 +2,7 @@ import { Chip, CircularProgress } from "@mui/material"
 import dynamic from "next/dynamic"
 import React, { FC } from "react"
 import Slider from "react-slick"
+import { IGenre } from "../../../../store/modules/movie/types/IGenre"
 import styles from "./DescriptionMovie.module.scss"
 
 const DynamicPersonData = dynamic(() => import("../PersonData"), {
@@ -10,7 +11,7 @@ const DynamicPersonData = dynamic(() => import("../PersonData"), {
 
 interface DescriptionMovieProps {
   description: string
-  genres: any
+  genres: IGenre[]
 }
 
 const DescriptionMovie: FC<DescriptionMovieProps> = ({
@@ -33,7 +34,7 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
     <div className={styles.wrapper}>
       <span>{description}</span>
       <div className={styles.categories}>
-        {genres.map((genre: any) => (
+        {genres.map((genre) => (
           <Chip key={genre._id} label={genre.name} className={styles.tag} />
         ))}
       </div>

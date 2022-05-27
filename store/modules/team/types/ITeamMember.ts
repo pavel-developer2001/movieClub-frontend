@@ -6,9 +6,8 @@ export interface ITeamsForUser {
   _id: number
   roleInTeam: string
   team: ITeam
-  teamId: number
   updatedAt: string
-  userId: number
+  userId?: number
 }
 export interface IMember {
   createdAt: string

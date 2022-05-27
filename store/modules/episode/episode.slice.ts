@@ -5,17 +5,19 @@ import {
   getEpisodes,
   getEpisodesForMovie,
 } from "./episode.actions"
+import { IEpisode } from "./types/IEpisode"
+import { ILastEpisode } from "./types/ILastEpisode"
 
 interface EpisodeState {
-  episodes: any
-  episode: any
+  episodes: ILastEpisode[]
+  episode: IEpisode | any
   status: null | string
   loading: boolean
   error: null
 }
 const initialState: EpisodeState = {
   episodes: [],
-  episode: [],
+  episode: {},
   status: null,
   loading: true,
   error: null,

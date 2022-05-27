@@ -1,7 +1,14 @@
 import axios from "axios"
 import UserApi from "./user-api"
 
-export const token: any =
+export interface IToken {
+  email: string
+  sub: number
+  iat: number
+  exp: number
+}
+
+export const token =
   typeof window !== "undefined" && window.localStorage.getItem("movie-token")
 
 const API_URL = "http://localhost:5000/api"

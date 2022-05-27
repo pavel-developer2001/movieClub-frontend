@@ -14,6 +14,7 @@ import {
 import { selectIsAuth } from "../../../../store/modules/user/user.selector"
 import dynamic from "next/dynamic"
 import { CircularProgress } from "@mui/material"
+import { IUser } from "../../../../store/modules/user/types/IUser"
 
 const DynamicMovieCard = dynamic(() => import("../../../UI/MovieCard"), {
   loading: () => <CircularProgress />,
@@ -35,7 +36,7 @@ const DynamicListInvitations = dynamic(() => import("../ListInvitations"), {
 })
 
 interface BodyUserProfileProps {
-  user: any
+  user: IUser
 }
 
 const BodyUserProfile: FC<BodyUserProfileProps> = ({ user }) => {

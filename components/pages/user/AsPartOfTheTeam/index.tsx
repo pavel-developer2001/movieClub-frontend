@@ -10,6 +10,7 @@ import {
 } from "../../../../store/modules/team/team.selector"
 import { useActions } from "../../../../hooks/useActions"
 import { CircularProgress } from "@mui/material"
+import { ITeamsForUser } from "../../../../store/modules/team/types/ITeamMember"
 
 const AsPartOfTheTeam = () => {
   const router = useRouter()
@@ -35,7 +36,7 @@ const AsPartOfTheTeam = () => {
     </div>
   )
 }
-const TeamList: FC<{ team: any }> = memo(({ team }) => {
+const TeamList: FC<{ team: ITeamsForUser }> = memo(({ team }) => {
   return (
     <Link href={`/team/${team.team._id}`}>
       <div className={styles.userData}>

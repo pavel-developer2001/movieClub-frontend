@@ -11,7 +11,7 @@ import { useRouter } from "next/router"
 interface CreateCommentFormProps {
   width?: string
   whom?: string
-  parentId?: null | string
+  parentId?: null | string | number
 }
 
 const CreateCommentForm: FC<CreateCommentFormProps> = ({

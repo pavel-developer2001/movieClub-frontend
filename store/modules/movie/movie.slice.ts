@@ -4,8 +4,7 @@ import { addNewMovie, getMovie, getMovies } from "./movie.actions"
 import { IGenre } from "./types/IGenre"
 
 interface MovieItems {
-  movie: any
-  genre: IGenre[]
+  genres: IGenre[]
 }
 interface MovieState {
   movies: any
@@ -16,7 +15,7 @@ interface MovieState {
 }
 const initialState: MovieState = {
   movies: [],
-  movie: { movie: [], genre: [] },
+  movie: { genres: [] },
   status: null,
   loading: true,
   error: null,

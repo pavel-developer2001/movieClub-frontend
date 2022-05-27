@@ -49,17 +49,17 @@ const Home: NextPage = () => {
     <MainLayout>
       {isLoading ? (
         <CircularProgress />
-      ) : movies.lenght > 10 ? (
+      ) : movies.length > 10 ? (
         <div>
           <Slider {...settings}>
-            {movies.map((movie: any) => (
+            {movies.map((movie) => (
               <MovieCard key={movie._id} movie={movie} />
             ))}
           </Slider>
         </div>
       ) : (
         <div style={{ display: "flex" }}>
-          {movies.map((movie: any) => (
+          {movies.map((movie) => (
             <MovieCard key={movie._id} movie={movie} />
           ))}
         </div>
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
         {episodeIsLoading ? (
           <CircularProgress />
         ) : episodes.length > 0 ? (
-          episodes.map((episode: any) => (
+          episodes.map((episode) => (
             <DynamicLastMovieEpisode episode={episode} key={episode._id} />
           ))
         ) : (

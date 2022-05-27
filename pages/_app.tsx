@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectIsAuth } from "../store/modules/user/user.selector"
 import { useEffect, useState } from "react"
 import { checkAuth } from "../store/modules/user/user.slice"
-import { token } from "../services"
+import { IToken, token } from "../services"
 import { getUserData, userCheckout } from "../store/modules/user/user.actions"
 import jwt_decode from "jwt-decode"
 import { useRouter } from "next/router"
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
-  const userId = token ? (jwt_decode(token) as any).sub : null
+  const userId = token ? (jwt_decode(token) as IToken).sub : null
   useEffect(() => {
     if (token) {
       //@ts-ignore

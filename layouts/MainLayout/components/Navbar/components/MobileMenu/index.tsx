@@ -14,13 +14,14 @@ import { useSelector } from "react-redux"
 import ChangeThemeButton from "../../../../../../components/UI/ChangeThemeButton"
 import dynamic from "next/dynamic"
 import { CircularProgress } from "@mui/material"
+import { IUser } from "../../../../../../store/modules/user/types/IUser"
 type Anchor = "right"
 
 const DynamicAuth = dynamic(() => import("../Auth"), {
   loading: () => <CircularProgress />,
 })
 
-const MobileMenu: FC<any> = ({ user }) => {
+const MobileMenu: FC<{ user: IUser }> = ({ user }) => {
   const { userExit } = useActions()
   const isAuth = useSelector(selectIsAuth)
   const [state, setState] = React.useState({

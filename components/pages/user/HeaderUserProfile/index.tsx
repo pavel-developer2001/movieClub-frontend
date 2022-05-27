@@ -1,10 +1,11 @@
 import { AccountCircle } from "@mui/icons-material"
 import Avatar from "@mui/material/Avatar"
 import React, { FC, memo } from "react"
+import { IUser } from "../../../../store/modules/user/types/IUser"
 import styles from "./HeaderUserProfile.module.scss"
 
 interface HeaderUserProfileProps {
-  user: any
+  user: IUser
 }
 
 const HeaderUserProfile: FC<HeaderUserProfileProps> = ({ user }) => {

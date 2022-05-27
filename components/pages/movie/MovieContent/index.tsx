@@ -15,6 +15,7 @@ import { useRouter } from "next/router"
 import { useActions } from "../../../../hooks/useActions"
 import { CircularProgress } from "@mui/material"
 import dynamic from "next/dynamic"
+import { IMovie } from "../../../../store/modules/movie/types/IMovie"
 
 const DynamicCommentsBlock = dynamic(() => import("../CommentsBlock"), {
   loading: () => <CircularProgress />,
@@ -24,7 +25,7 @@ const DynamicVideoPlayer = dynamic(() => import("../../../UI/VideoPlayer"), {
 })
 
 interface MovieContentProps {
-  movie: any
+  movie: IMovie
 }
 
 const MovieContent: FC<MovieContentProps> = ({ movie }) => {
@@ -55,7 +56,7 @@ const MovieContent: FC<MovieContentProps> = ({ movie }) => {
       component: isLoading ? (
         <CircularProgress />
       ) : episodes.length > 0 ? (
-        episodes.map((episode: any) => (
+        episodes.map((episode) => (
           <DynamicVideoPlayer key={episode._id} value={episode.url} />
         ))
       ) : (
