@@ -1,5 +1,5 @@
 import { RootState } from "../../reducer"
-import { IBookmark } from "./types/IBookMark"
+import { IBookmark } from "./types/IBookmark"
 
 export const selectBookMark = (state: RootState) => state.bookmark
 

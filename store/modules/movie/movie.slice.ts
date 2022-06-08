@@ -23,19 +23,7 @@ const initialState: MovieState = {
 const movieSlice = createSlice({
   name: "movie",
   initialState,
-  reducers: {
-    //@ts-ignore
-    setMovies(state, action) {
-      state.mangas = action.payload
-      state.loading = false
-    },
-    //@ts-ignore
-    setMovie(state, action) {
-      state.manga = action.payload
-      state.loading = false
-    },
-  },
-
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addCase(HYDRATE, (state, action: any) => {
@@ -57,4 +45,3 @@ const movieSlice = createSlice({
 })
 
 export default movieSlice.reducer
-export const { setMovies, setMovie } = movieSlice.actions

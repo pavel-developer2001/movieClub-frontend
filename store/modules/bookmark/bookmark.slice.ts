@@ -6,7 +6,7 @@ import {
   getBookmarkToMovie,
   updateBookmark,
 } from "./bookmark.actions"
-import { IBookmark } from "./types/IBookMark"
+import { IBookmark } from "./types/IBookmark"
 
 interface BookmarkState {
   bookMarks: IBookmark[]
