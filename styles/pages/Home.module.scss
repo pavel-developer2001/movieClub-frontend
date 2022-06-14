@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+}
+@media (max-width: 860px) {
+  .wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

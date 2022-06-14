@@ -1,7 +1,6 @@
 import { Chip, CircularProgress } from "@mui/material"
 import dynamic from "next/dynamic"
 import React, { FC } from "react"
-import Slider from "react-slick"
 import { IGenre } from "../../../../store/modules/movie/types/IGenre"
 import styles from "./DescriptionMovie.module.scss"
 
@@ -18,18 +17,6 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
   description,
   genres,
 }) => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    autoplay: true,
-    touchMove: false,
-    //centerMode: true,
-    arrows: false,
-    focusOnSelect: true,
-    slidesToScroll: 1,
-  }
   return (
     <div className={styles.wrapper}>
       <span>{description}</span>
@@ -48,12 +35,10 @@ const DescriptionMovie: FC<DescriptionMovieProps> = ({
       </div>
       <div className={styles.person}>
         <strong>Актёры</strong>
-        <div style={{ paddingTop: "15px" }}>
-          <Slider {...settings}>
-            {new Array(8).fill("").map((_, index) => (
-              <DynamicPersonData key={index} />
-            ))}
-          </Slider>
+        <div className={styles.personList}>
+          {new Array(8).fill("").map((_, index) => (
+            <DynamicPersonData key={index} />
+          ))}
         </div>
       </div>
     </div>
