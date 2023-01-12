@@ -20,7 +20,7 @@
 - Typescript
 - React-hook-form
 
-## INSTALL
+## Install 
 
 - 1 Install all packages:
 
@@ -38,5 +38,5 @@ npm run dev
 yarn dev
 ```
 
-!!! To work properly, you need to raise the backend.
-The backend version of this project [here](https://github.com/pavel-developer2001/movieClub-backend).
+- 3 You need to raise the backend.
+The backend version [here](https://github.com/pavel-developer2001/movieClub-backend).
